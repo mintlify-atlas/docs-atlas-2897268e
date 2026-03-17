@@ -1,0 +1,80 @@
+---
+title: "Stations: Web Hooks"
+description: "Create, manage, and test outbound web hooks that fire on station events in AzuraCast."
+---
+
+The **Stations: Web Hooks** resource manages outbound web hooks — configuring which external URLs receive event notifications when station events occur (such as song changes or listener milestones), and testing those hooks.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_web_hooks
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addWebhook — Create a web hook">
+    **Type:** Write
+
+    Creates a new outbound web hook for the station. Accepts a JSON body with the hook type, target URL, and trigger events.
+  </Accordion>
+
+  <Accordion title="cloneWebhook — Clone a web hook">
+    **Type:** Write
+
+    Creates a copy of an existing web hook configuration.
+  </Accordion>
+
+  <Accordion title="deleteWebhook — Delete a web hook">
+    **Type:** Write
+
+    Permanently deletes a web hook by its ID.
+  </Accordion>
+
+  <Accordion title="editWebhook — Update a web hook">
+    **Type:** Write
+
+    Updates the configuration of an existing web hook. Accepts a JSON body with the fields to change.
+  </Accordion>
+
+  <Accordion title="getWebhook — Retrieve a web hook">
+    **Type:** Read
+
+    Returns the full configuration for a single web hook by its ID.
+  </Accordion>
+
+  <Accordion title="getWebhooks — List all web hooks">
+    **Type:** Read
+
+    Returns a list of all outbound web hooks configured for the station.
+  </Accordion>
+
+  <Accordion title="getWebhookTestLog — Retrieve the test log for a web hook">
+    **Type:** Read
+
+    Returns the log output from the most recent test dispatch for a specific web hook.
+  </Accordion>
+
+  <Accordion title="putStationWebhookTest — Test a web hook">
+    **Type:** Write
+
+    Sends a test payload to a web hook's configured target URL and records the response.
+  </Accordion>
+
+  <Accordion title="putStationWebhookToggle — Toggle a web hook on or off">
+    **Type:** Write
+
+    Enables or disables a web hook without deleting it.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

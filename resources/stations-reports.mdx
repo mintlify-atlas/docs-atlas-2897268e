@@ -1,0 +1,104 @@
+---
+title: "Stations: Reports"
+description: "Access playback history, listener analytics, and performance reports for an AzuraCast station."
+---
+
+The **Stations: Reports** resource provides access to station analytics and reporting — listener history, live listener data, song performance rankings, geographic and client breakdowns, chart data, SoundExchange reports, and listener request management.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_reports
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="deleteStationRequest — Delete a listener request">
+    **Type:** Write
+
+    Removes a specific pending listener song request by its ID.
+  </Accordion>
+
+  <Accordion title="getStationHistory — Retrieve playback history">
+    **Type:** Read
+
+    Returns a log of recently played songs for the station, with optional date range filtering.
+  </Accordion>
+
+  <Accordion title="getStationListeners — Retrieve live listener data">
+    **Type:** Read
+
+    Returns a real-time snapshot of currently connected listeners, including their client info and location.
+  </Accordion>
+
+  <Accordion title="getStationReportBestAndWorst — Retrieve best and worst performing songs">
+    **Type:** Read
+
+    Returns ranked lists of the best and worst performing songs based on listener retention metrics.
+  </Accordion>
+
+  <Accordion title="getStationReportByBrowser — Retrieve listener report by browser">
+    **Type:** Read
+
+    Returns listener counts and session data grouped by browser type.
+  </Accordion>
+
+  <Accordion title="getStationReportByClient — Retrieve listener report by client">
+    **Type:** Read
+
+    Returns listener counts and session data grouped by media player or client application.
+  </Accordion>
+
+  <Accordion title="getStationReportByCountry — Retrieve listener report by country">
+    **Type:** Read
+
+    Returns listener counts grouped by geographic country, based on IP geolocation.
+  </Accordion>
+
+  <Accordion title="getStationReportByListeningTime — Retrieve report by listening time">
+    **Type:** Read
+
+    Returns an analysis of listener engagement grouped by total listening time buckets.
+  </Accordion>
+
+  <Accordion title="getStationReportByStream — Retrieve listener report by stream">
+    **Type:** Read
+
+    Returns listener counts and session data broken down by mount point or remote relay stream.
+  </Accordion>
+
+  <Accordion title="getStationReportCharts — Retrieve chart data">
+    **Type:** Read
+
+    Returns time-series chart data for listener counts over a specified period.
+  </Accordion>
+
+  <Accordion title="getStationRequestsReport — Retrieve listener requests report">
+    **Type:** Read
+
+    Returns a list of pending and fulfilled song requests from listeners.
+  </Accordion>
+
+  <Accordion title="getStationSoundExchangeReport — Retrieve SoundExchange report">
+    **Type:** Read
+
+    Returns data formatted for SoundExchange royalty reporting, covering plays and listener counts within a date range.
+  </Accordion>
+
+  <Accordion title="postStationRequestsClear — Clear all listener requests">
+    **Type:** Write
+
+    Removes all pending listener song requests from the station queue.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

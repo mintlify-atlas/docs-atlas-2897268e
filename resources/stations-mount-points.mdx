@@ -1,0 +1,74 @@
+---
+title: "Stations: Mount Points"
+description: "Create, edit, and manage Icecast or Shoutcast mount points for an AzuraCast station, including intro file uploads."
+---
+
+The **Stations: Mount Points** resource manages the individual mount points that listeners connect to — adding and removing mounts, editing their settings, and handling intro audio files played when a listener first tunes in.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_mount_points
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addMount — Create a mount point">
+    **Type:** Write
+
+    Creates a new mount point for the station. Accepts a JSON body with mount configuration (path, format, bitrate, etc.).
+  </Accordion>
+
+  <Accordion title="deleteMount — Delete a mount point">
+    **Type:** Write
+
+    Permanently deletes a mount point by its ID.
+  </Accordion>
+
+  <Accordion title="deleteMountIntro — Delete the intro file for a mount point">
+    **Type:** Write
+
+    Removes the intro audio file associated with a specific mount point.
+  </Accordion>
+
+  <Accordion title="editMount — Update a mount point">
+    **Type:** Write
+
+    Updates the configuration of an existing mount point. Accepts a JSON body with the fields to change.
+  </Accordion>
+
+  <Accordion title="getMount — Retrieve a mount point">
+    **Type:** Read
+
+    Returns the full configuration details for a single mount point by its ID.
+  </Accordion>
+
+  <Accordion title="getMountIntro — Retrieve the intro file for a mount point">
+    **Type:** Read
+
+    Downloads the intro audio file for a specific mount point. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getStationMounts — List all mount points">
+    **Type:** Read
+
+    Returns a list of all mount points configured for the station.
+  </Accordion>
+
+  <Accordion title="postMountIntro — Upload an intro file for a mount point">
+    **Type:** Write
+
+    Uploads an audio intro file for a specific mount point. Supports binary (multipart) upload.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

@@ -1,0 +1,56 @@
+---
+title: "Stations: HLS Streams"
+description: "Create, edit, and manage HTTP Live Streaming (HLS) stream variants for an AzuraCast station."
+---
+
+The **Stations: HLS Streams** resource manages HLS stream variants for a station. Each HLS stream defines a quality tier (bitrate, codec) that is included in the station's HLS playlist.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_hls_streams
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addHlsStream — Create an HLS stream">
+    **Type:** Write
+
+    Creates a new HLS stream variant for the station. Accepts a JSON body with stream parameters such as name, format, and bitrate.
+  </Accordion>
+
+  <Accordion title="deleteHlsStream — Delete an HLS stream">
+    **Type:** Write
+
+    Permanently deletes an HLS stream variant by its ID.
+  </Accordion>
+
+  <Accordion title="editHlsStream — Update an HLS stream">
+    **Type:** Write
+
+    Updates the configuration of an existing HLS stream variant. Accepts a JSON body with the fields to change.
+  </Accordion>
+
+  <Accordion title="getHlsStream — Retrieve an HLS stream">
+    **Type:** Read
+
+    Returns the configuration details for a single HLS stream variant by its ID.
+  </Accordion>
+
+  <Accordion title="getHlsStreams — List all HLS streams">
+    **Type:** Read
+
+    Returns a list of all HLS stream variants configured for the station.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

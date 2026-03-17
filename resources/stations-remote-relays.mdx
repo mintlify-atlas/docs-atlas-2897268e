@@ -1,0 +1,56 @@
+---
+title: "Stations: Remote Relays"
+description: "Create, edit, and manage remote relay connections for an AzuraCast station."
+---
+
+The **Stations: Remote Relays** resource manages remote relay streams — external Icecast or Shoutcast servers that the station relays audio to or pulls audio from.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_remote_relays
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addRelay — Create a remote relay">
+    **Type:** Write
+
+    Creates a new remote relay connection for the station. Accepts a JSON body with relay settings (URL, mount, type, etc.).
+  </Accordion>
+
+  <Accordion title="deleteRelay — Delete a remote relay">
+    **Type:** Write
+
+    Permanently deletes a remote relay connection by its ID.
+  </Accordion>
+
+  <Accordion title="editRelay — Update a remote relay">
+    **Type:** Write
+
+    Updates the configuration of an existing remote relay. Accepts a JSON body with the fields to change.
+  </Accordion>
+
+  <Accordion title="getRelay — Retrieve a remote relay">
+    **Type:** Read
+
+    Returns the configuration details for a single remote relay by its ID.
+  </Accordion>
+
+  <Accordion title="getRelays — List all remote relays">
+    **Type:** Read
+
+    Returns a list of all remote relay connections configured for the station.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

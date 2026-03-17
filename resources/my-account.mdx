@@ -1,0 +1,75 @@
+---
+title: 'My Account'
+description: 'Manage the authenticated user account — profile, API keys, two-factor authentication, and passkeys. Requires an API key.'
+---
+
+The **My Account** resource lets the authenticated user read and update their own profile, manage their API keys, configure two-factor authentication (2FA), and register or remove passkeys (WebAuthn). All operations in this resource require a valid API key.
+
+<Warning>
+  All operations in this resource require authentication. Configure your AzuraCast API key in the node credentials before using any of these operations.
+</Warning>
+
+## Resource selector
+
+In the node, set **Resource** to `My Account` (value: `resource_my_account`).
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="Profile">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getMe` | Get My Profile | `GET /me` | Returns the profile information for the currently authenticated user. |
+    | `putMe` | Update My Profile | `PUT /me` | Updates the profile information for the currently authenticated user. |
+    | `changeMyPassword` | Change My Password | `PUT /me/password` | Changes the password for the currently authenticated user. |
+  </Accordion>
+
+  <Accordion title="API keys">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getMyApiKeys` | Get My API Keys | `GET /me/api-keys` | Returns all API keys associated with the authenticated user's account. |
+    | `getMyApiKey` | Get My API Key | `GET /me/api-keys/{id}` | Returns details for a specific API key by its ID. |
+    | `addMyApiKey` | Add My API Key | `POST /me/api-keys` | Creates a new API key for the authenticated user. |
+    | `deleteMyApiKey` | Delete My API Key | `DELETE /me/api-keys/{id}` | Permanently deletes a specific API key from the authenticated user's account. |
+  </Accordion>
+
+  <Accordion title="Two-factor authentication">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getMyTwoFactor` | Get My Two Factor | `GET /me/two-factor` | Returns the current 2FA configuration for the authenticated user. |
+    | `putAccountTwoFactor` | Update Two Factor | `PUT /me/two-factor` | Enables or updates the 2FA configuration for the authenticated user. |
+    | `deleteMyTwoFactor` | Delete My Two Factor | `DELETE /me/two-factor` | Disables two-factor authentication for the authenticated user. |
+  </Accordion>
+
+  <Accordion title="Passkeys (WebAuthn)">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getAccountListPasskeys` | List Account Passkeys | `GET /me/passkeys` | Returns all registered passkeys for the authenticated user. |
+    | `getAccountGetPasskey` | Get Account Passkey | `GET /me/passkeys/{id}` | Returns details for a specific registered passkey. |
+    | `deleteAccountPasskey` | Delete Account Passkey | `DELETE /me/passkeys/{id}` | Removes a specific passkey from the authenticated user's account. |
+    | `getAccountWebAuthnRegister` | Get WebAuthn Register Challenge | `GET /me/webauthn` | Returns the WebAuthn registration challenge needed to begin registering a new passkey. |
+    | `putAccountWebAuthnRegister` | Complete WebAuthn Registration | `PUT /me/webauthn` | Completes the WebAuthn passkey registration using the challenge response from the authenticator. |
+  </Accordion>
+</AccordionGroup>
+
+## Usage example
+
+To retrieve the profile of the currently authenticated user:
+
+```text
+Resource  → My Account
+Operation → Get My Profile
+```
+
+To add a new API key to your account programmatically:
+
+```text
+Resource  → My Account
+Operation → Add My API Key
+```
+
+Then populate the **Request Body** with a `comment` field to label the new key.
+
+<Tip>
+  Use **Get My API Keys** followed by **Delete My API Key** to rotate API keys in an automated workflow — create a new key, update downstream systems, then remove the old one.
+</Tip>

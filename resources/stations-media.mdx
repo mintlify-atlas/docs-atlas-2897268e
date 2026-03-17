@@ -1,0 +1,156 @@
+---
+title: "Stations: Media"
+description: "Upload, manage, and organize media files in an AzuraCast station's media library, including art, waveforms, and bulk operations."
+---
+
+The **Stations: Media** resource provides full control over a station's media library — uploading and editing audio files, managing album art, generating waveforms, browsing directories, and running batch operations.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_media
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addFile — Create a new media file record">
+    **Type:** Write
+
+    Creates a new media file entry in the station library. Accepts a JSON body with file metadata.
+  </Accordion>
+
+  <Accordion title="deleteFile — Delete a media file">
+    **Type:** Write
+
+    Permanently deletes a media file from the station library. Requires the file's unique ID.
+  </Accordion>
+
+  <Accordion title="deleteMediaArt — Delete album art for a media file">
+    **Type:** Write
+
+    Removes the album art associated with a specific media file. Requires the media file's unique ID.
+  </Accordion>
+
+  <Accordion title="editFile — Update media file metadata">
+    **Type:** Write
+
+    Updates metadata (title, artist, album, etc.) for an existing media file. Accepts a JSON body.
+  </Accordion>
+
+  <Accordion title="getFile — Retrieve a media file record">
+    **Type:** Read
+
+    Returns the metadata record for a single media file by its unique ID.
+  </Accordion>
+
+  <Accordion title="getFiles — List all media files">
+    **Type:** Read
+
+    Returns a paginated list of all media files in the station library.
+  </Accordion>
+
+  <Accordion title="getPlayFile — Stream a media file by ID">
+    **Type:** Read
+
+    Returns a streamable or downloadable audio file by its media ID. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getPlayFileSongId — Stream a media file by song ID">
+    **Type:** Read
+
+    Returns a streamable or downloadable audio file identified by its song hash/ID. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getStationBulkMediaDownload — Download multiple media files">
+    **Type:** Read
+
+    Initiates a bulk download of multiple media files as an archive. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getStationFileDirectories — List media directories">
+    **Type:** Read
+
+    Returns the directory structure within the station's media storage.
+  </Accordion>
+
+  <Accordion title="getStationFileDownload — Download a single media file">
+    **Type:** Read
+
+    Downloads a specific media file by path or ID. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getStationFileList — List files in a directory">
+    **Type:** Read
+
+    Returns the file listing for a specific directory path within station media storage.
+  </Accordion>
+
+  <Accordion title="getStationMediaWaveform — Retrieve a waveform image">
+    **Type:** Read
+
+    Returns the waveform visualization data or image for a specific media file. Returns binary data.
+  </Accordion>
+
+  <Accordion title="postMediaArt — Upload album art">
+    **Type:** Write
+
+    Uploads album art for a specific media file. Supports binary (multipart) upload.
+  </Accordion>
+
+  <Accordion title="postStationBulkMediaPreview — Preview a bulk media operation">
+    **Type:** Write
+
+    Runs a dry-run preview of a bulk media action without applying changes. Accepts a JSON body describing the intended operation.
+  </Accordion>
+
+  <Accordion title="postStationBulkMediaUpload — Bulk upload media files">
+    **Type:** Write
+
+    Uploads multiple media files to the station library in a single request. Supports multipart upload.
+  </Accordion>
+
+  <Accordion title="postStationFilesMkdir — Create a directory">
+    **Type:** Write
+
+    Creates a new directory within the station's media storage. Accepts the target path in the JSON body.
+  </Accordion>
+
+  <Accordion title="postStationFilesRename — Rename or move a file">
+    **Type:** Write
+
+    Renames or moves a media file or directory to a new path. Accepts source and destination paths in the JSON body.
+  </Accordion>
+
+  <Accordion title="postStationMediaWaveform — Generate a waveform">
+    **Type:** Write
+
+    Triggers waveform generation for a specific media file.
+  </Accordion>
+
+  <Accordion title="postUploadFile — Upload a media file">
+    **Type:** Write
+
+    Uploads a single audio file to the station media library. Supports multipart form-data upload.
+  </Accordion>
+
+  <Accordion title="putStationFileBatchAction — Apply a batch action to files">
+    **Type:** Write
+
+    Applies a batch action (such as move, delete, or re-process) to a set of media files. Accepts a JSON body with file IDs and the action to perform.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>
+
+<Tip>
+  Operations that upload files (`postUploadFile`, `postStationBulkMediaUpload`, `postMediaArt`) use multipart form-data. In your n8n workflow, pass the binary item from a previous node and set the binary property name accordingly.
+</Tip>

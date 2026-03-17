@@ -1,0 +1,92 @@
+---
+title: "Publishing to npm"
+description: "How to validate, version, and publish the @renebello/n8n-nodes-azuracast package to npm."
+---
+
+## Pre-publish checklist
+
+Before publishing, run the full validation suite. This single command runs lint, build, operation verification, UI metadata verification, local simulation, pack inspection, and a publish dry-run in sequence:
+
+```bash
+npm run validate:publish
+```
+
+The `validate:publish` script runs the following steps in order:
+
+| Step | Command | What it checks |
+|---|---|---|
+| Lint | `npm run lint` | Code style and type correctness |
+| Build | `npm run build` | TypeScript compilation via `n8n-node build` |
+| Verify operations | `npm run verify:operations` | 263/263 operation ID coverage against the live OpenAPI spec |
+| Verify UI metadata | `npm run verify:ui` | Resource and action label rendering integrity |
+| Simulate locally | `npm run simulate:local` | Request/response behavior across JSON, binary, multipart, auth |
+| Pack check | `npm run pack:check` | Inspects package contents via `npm pack --dry-run` |
+| Publish dry-run | `npm run publish:dry-run` | Confirms npm publish metadata without uploading |
+
+You can also run any of these steps individually:
+
+```bash
+npm run verify:operations
+npm run verify:ui
+npm run pack:check
+npm run publish:dry-run
+```
+
+## n8n community node discovery requirements
+
+For n8n to recognize this package as a community node, `package.json` must satisfy all three conditions:
+
+- Package name starts with `n8n-nodes-` or `@scope/n8n-nodes-...` — this package uses `@renebello/n8n-nodes-azuracast`
+- The `keywords` array includes `n8n-community-node-package`
+- A top-level `n8n` block is present with `credentials` and `nodes` dist paths
+
+The `package.json` already has `"access": "public"` set in `publishConfig`, which is required for scoped packages on npm.
+
+## Versioning
+
+Use standard npm version commands. These update `package.json` and create a git tag:
+
+```bash
+npm version patch   # e.g. 0.1.4 → 0.1.5
+npm version minor   # e.g. 0.1.4 → 0.2.0
+npm version major   # e.g. 0.1.4 → 1.0.0
+```
+
+Update `CHANGELOG.md` to document the release before tagging.
+
+## Publishing options
+
+### Automated publish via GitHub Actions
+
+The repository includes a GitHub Actions workflow (`.github/workflows/publish.yml`) that publishes the package with provenance attestation on every version tag.
+
+<Steps>
+  <Step title="Add the NPM_TOKEN secret">
+    In your GitHub repository, go to **Settings → Secrets and variables → Actions** and add a secret named `NPM_TOKEN` with a token that has publish permissions on npm.
+  </Step>
+  <Step title="Push a version tag">
+    After bumping the version, push the tag to trigger the workflow:
+
+    ```bash
+    git push origin v0.1.0
+    ```
+
+    GitHub Actions will run `validate:publish` checks and publish to npm with provenance.
+  </Step>
+</Steps>
+
+### Manual publish
+
+To release manually using the `n8n-node` CLI:
+
+```bash
+# Bump version, tag, and prepare release artifacts without publishing
+npm run release
+
+# Bump version, tag, prepare, and publish in one step
+npm run release:publish
+```
+
+<Note>
+  The `prepublishOnly` hook runs `n8n-node prerelease` automatically before any `npm publish` invocation, including dry-runs.
+</Note>

@@ -1,0 +1,218 @@
+---
+title: "Administration: General"
+description: Server-wide administrative operations including API keys, relay management, logs, SSL certificates, system updates, and third-party integrations.
+---
+
+The **Administration: General** resource covers broad server-level operations available only to AzuraCast administrators. This includes managing global API keys, viewing system and ACME logs, controlling third-party software (GeoLite, RSAS, Shoutcast, StereoTool), triggering updates, and restarting services.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_general
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="adminAcmeViewLog — View ACME Certificate Log">
+    **Type:** Read
+
+    Retrieves the log output from the most recent ACME (Let's Encrypt) certificate generation or renewal attempt.
+  </Accordion>
+
+  <Accordion title="adminCreateApiKey — Create Admin API Key">
+    **Type:** Write
+
+    Creates a new global administrator-level API key.
+  </Accordion>
+
+  <Accordion title="adminDeleteApiKey — Delete Admin API Key">
+    **Type:** Write
+
+    Deletes an existing administrator API key by its identifier.
+  </Accordion>
+
+  <Accordion title="adminGetRelays — List Relays">
+    **Type:** Read
+
+    Retrieves all configured relay stations known to the server.
+  </Accordion>
+
+  <Accordion title="adminListApiKeys — List Admin API Keys">
+    **Type:** Read
+
+    Returns all administrator API keys registered on the server.
+  </Accordion>
+
+  <Accordion title="adminListLogs — List System Logs">
+    **Type:** Read
+
+    Lists all available system log files on the server.
+  </Accordion>
+
+  <Accordion title="adminSendTestEmail — Send Test Email">
+    **Type:** Write
+
+    Sends a test email using the server's current email configuration to verify delivery.
+  </Accordion>
+
+  <Accordion title="adminViewLog — View System Log">
+    **Type:** Read
+
+    Retrieves the contents of a specific system log file.
+  </Accordion>
+
+  <Accordion title="deleteAdminCustomAsset — Delete Custom Asset">
+    **Type:** Write
+
+    Removes a custom branding asset (e.g. logo or background image) from the server.
+  </Accordion>
+
+  <Accordion title="deleteRsas — Delete RSAS Binary">
+    **Type:** Write
+
+    Removes the currently installed RSAS (Radio Station Automation Software) binary from the server.
+  </Accordion>
+
+  <Accordion title="deleteRsasLicense — Delete RSAS License">
+    **Type:** Write
+
+    Removes the RSAS license file from the server.
+  </Accordion>
+
+  <Accordion title="deleteShoutcast — Delete Shoutcast">
+    **Type:** Write
+
+    Removes the Shoutcast DNAS binary from the server.
+  </Accordion>
+
+  <Accordion title="deleteStereoTool — Delete StereoTool">
+    **Type:** Write
+
+    Removes the StereoTool audio processing binary from the server.
+  </Accordion>
+
+  <Accordion title="getAdminCustomAsset — Get Custom Asset">
+    **Type:** Read
+
+    Retrieves information about a currently installed custom branding asset.
+  </Accordion>
+
+  <Accordion title="getAuditlog — Get Audit Log">
+    **Type:** Read
+
+    Returns the server-wide audit log, recording administrative actions taken across the platform.
+  </Accordion>
+
+  <Accordion title="getGeoLite — Get GeoLite Status">
+    **Type:** Read
+
+    Returns the current installation status and version of the MaxMind GeoLite database used for listener geolocation.
+  </Accordion>
+
+  <Accordion title="getRsas — Get RSAS Status">
+    **Type:** Read
+
+    Returns the current installation status and version of the RSAS binary.
+  </Accordion>
+
+  <Accordion title="getServerStats — Get Server Stats">
+    **Type:** Read
+
+    Retrieves real-time system resource statistics for the server (CPU, memory, disk).
+  </Accordion>
+
+  <Accordion title="getServiceDetails — Get Service Details">
+    **Type:** Read
+
+    Returns the status and details of all running AzuraCast background services.
+  </Accordion>
+
+  <Accordion title="getShoutcast — Get Shoutcast Status">
+    **Type:** Read
+
+    Returns the current installation status and version of the Shoutcast DNAS binary.
+  </Accordion>
+
+  <Accordion title="getStereoTool — Get StereoTool Status">
+    **Type:** Read
+
+    Returns the current installation status and version of the StereoTool binary.
+  </Accordion>
+
+  <Accordion title="getUpdateStatus — Get Update Status">
+    **Type:** Read
+
+    Checks whether a newer version of AzuraCast is available and returns update information.
+  </Accordion>
+
+  <Accordion title="internalGetRelayDetails — Get Internal Relay Details">
+    **Type:** Read
+
+    Returns internal relay configuration details used for inter-server communication.
+  </Accordion>
+
+  <Accordion title="postAdminCustomAsset — Upload Custom Asset">
+    **Type:** Write
+
+    Uploads a new custom branding asset to the server.
+  </Accordion>
+
+  <Accordion title="postGeoLite — Upload GeoLite Database">
+    **Type:** Write
+
+    Uploads a new MaxMind GeoLite database file to enable or update listener geolocation.
+  </Accordion>
+
+  <Accordion title="postRsas — Upload RSAS Binary">
+    **Type:** Write
+
+    Uploads the RSAS binary to the server.
+  </Accordion>
+
+  <Accordion title="postRsasLicense — Upload RSAS License">
+    **Type:** Write
+
+    Uploads an RSAS license file to the server.
+  </Accordion>
+
+  <Accordion title="postShoutcast — Upload Shoutcast Binary">
+    **Type:** Write
+
+    Uploads the Shoutcast DNAS binary to the server.
+  </Accordion>
+
+  <Accordion title="postStereoTool — Upload StereoTool Binary">
+    **Type:** Write
+
+    Uploads the StereoTool audio processing binary to the server.
+  </Accordion>
+
+  <Accordion title="putAdminGenerateAcmeCert — Generate ACME Certificate">
+    **Type:** Write
+
+    Triggers generation or renewal of a Let's Encrypt SSL/TLS certificate via the ACME protocol.
+  </Accordion>
+
+  <Accordion title="putWebUpdate — Run Web Update">
+    **Type:** Write
+
+    Initiates an AzuraCast update through the web interface.
+  </Accordion>
+
+  <Accordion title="restartService — Restart Service">
+    **Type:** Write
+
+    Restarts one or more AzuraCast background services.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Note>
+  Operations like `restartService`, `putWebUpdate`, and `putAdminGenerateAcmeCert` are disruptive and may temporarily affect broadcast availability. Use them during scheduled maintenance windows.
+</Note>

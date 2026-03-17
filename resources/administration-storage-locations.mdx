@@ -1,0 +1,56 @@
+---
+title: "Administration: Storage Locations"
+description: Administrator-level management of storage locations used by stations for media files, recordings, and podcasts.
+---
+
+The **Administration: Storage Locations** resource lets administrators define and manage the physical or remote storage backends (local disk, S3-compatible, SFTP) that stations use to store media libraries, live recordings, and podcast episodes.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_storage_locations
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addStorageLocation — Create Storage Location">
+    **Type:** Write
+
+    Creates a new storage location, specifying the adapter type (local, S3, SFTP) and its connection details.
+  </Accordion>
+
+  <Accordion title="deleteStorageLocation — Delete Storage Location">
+    **Type:** Write
+
+    Permanently deletes a storage location. The underlying files are not removed, but they will no longer be accessible through AzuraCast.
+  </Accordion>
+
+  <Accordion title="editStorageLocation — Update Storage Location">
+    **Type:** Write
+
+    Updates the connection details or configuration of an existing storage location.
+  </Accordion>
+
+  <Accordion title="getStorageLocation — Get Storage Location">
+    **Type:** Read
+
+    Retrieves the configuration details of a single storage location by its ID.
+  </Accordion>
+
+  <Accordion title="getStorageLocations — List Storage Locations">
+    **Type:** Read
+
+    Returns all storage locations configured on the AzuraCast server.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Note>
+  Before deleting a storage location, use the **Administration: Stations** resource to check which stations reference it via `getAdminStationStorageLocations`. Deleting an in-use storage location may disrupt media playback for those stations.
+</Note>

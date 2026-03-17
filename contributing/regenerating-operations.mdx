@@ -1,0 +1,108 @@
+---
+title: "Regenerating Operations"
+description: "How to regenerate node operations when AzuraCast updates its OpenAPI specification."
+---
+
+The AzuraCast node is fully generated from the official AzuraCast OpenAPI specification. When AzuraCast releases API changes, you need to regenerate the operation snapshot and all derived node files to keep coverage at 263/263.
+
+## When to regenerate
+
+Regenerate operations whenever:
+
+- AzuraCast adds, removes, or renames API endpoints
+- Operation tags, parameters, or request/response schemas change upstream
+- The `verify:operations` command reports missing or extra operations compared to the live spec
+
+## OpenAPI source
+
+The generator fetches the spec from the official AzuraCast repository:
+
+```
+https://raw.githubusercontent.com/AzuraCast/AzuraCast/main/web/static/openapi.yml
+```
+
+You can override the source URL with the `AZURACAST_OPENAPI_URL` environment variable if you need to target a different spec file or a local copy.
+
+## Regeneration steps
+
+<Steps>
+  <Step title="Regenerate operations from the OpenAPI spec">
+    This runs `generate-operations.mjs` followed by `generate-domain-nodes.mjs`:
+
+    ```bash
+    npm run generate:operations
+    ```
+
+    **What this does:**
+
+    1. `generate-operations.mjs` fetches the OpenAPI YAML, resolves all `$ref` entries, and writes the intermediate artifact `nodes/AzuraCast/azuracast.openapi.snapshot.json`. This snapshot contains the full operation list, an operation map keyed by `operationId`, and the sorted option entries used by the node UI.
+    2. `generate-domain-nodes.mjs` reads the snapshot and regenerates all TypeScript source files under `nodes/AzuraCast/properties/` and `nodes/AzuraCast/execute/`, the domain manifest `azuracast.domains.json`, and the root node class `AzuraCast.node.ts`.
+  </Step>
+  <Step title="Verify operation ID coverage">
+    ```bash
+    npm run verify:operations
+    ```
+
+    This script fetches the live OpenAPI spec and compares it against the local snapshot. It checks:
+
+    - All official operation IDs are present in the snapshot (no missing)
+    - No extra operation IDs exist in the snapshot that are absent from the spec
+    - Method, path, tag, and `isPublic` metadata match for every operation (no drift)
+    - The `azuracast.domains.json` manifest covers every tag and operation without gaps or duplicates
+    - Generated `properties/` and `execute/` module file counts match the number of domains
+    - The `package.json` `n8n.nodes` array references exactly `dist/nodes/AzuraCast/AzuraCast.node.js`
+
+    A passing run prints:
+
+    ```
+    Operation coverage verified: 263/263 across N grouped resources in one node (metadata aligned)
+    ```
+  </Step>
+  <Step title="Verify UI metadata rendering">
+    ```bash
+    npm run verify:ui
+    ```
+
+    This script imports the compiled `dist/nodes/AzuraCast/properties/index.js` and validates:
+
+    - The `resource` selector has options and a valid default
+    - One `operation` selector exists per resource
+    - Every operation option has a non-empty `name`, `value`, and `action`
+    - No operation label is path-like (contains `/api/`, `[`, `{`, etc.)
+    - No operation label exceeds 8 words
+    - No duplicate operation labels within a resource
+    - No duplicate operation values across all resources
+    - No discouraged binary field label strings
+
+    A passing run prints:
+
+    ```
+    UI metadata verified: resources=N operationSelectors=N operations=263
+    ```
+
+    <Note>
+      `verify:ui` requires a built `dist/` directory. Run `npm run build` before running this step if you have not built since the last generation.
+    </Note>
+  </Step>
+</Steps>
+
+## Intermediate artifact
+
+The file `nodes/AzuraCast/azuracast.openapi.snapshot.json` is the single source of truth between the two generation scripts. It contains:
+
+- `source` — the OpenAPI URL and the timestamp of the last generation
+- `operations` — the full list of resolved operation objects including path/query/body field definitions
+- `operationMap` — operations indexed by `operationId` for fast lookup at runtime
+- `operationOptions` — the sorted `{ name, value, description }` entries used to populate the node UI dropdowns
+
+This file is committed to the repository so that the node can be built without a network connection to the AzuraCast spec.
+
+## After regeneration
+
+After all three verification steps pass, run the full pre-publish validation before committing:
+
+```bash
+npm run validate:publish
+```
+
+Commit the updated snapshot, domain manifest, and generated source files together.

@@ -1,0 +1,38 @@
+---
+title: "Administration: Settings"
+description: Retrieve and update global AzuraCast server settings.
+---
+
+The **Administration: Settings** resource provides access to the global configuration of the AzuraCast installation, such as branding, email configuration, listener analytics preferences, and other server-wide options.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_settings
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="getSettings — Get Settings">
+    **Type:** Read
+
+    Retrieves the current global server settings for the AzuraCast installation.
+  </Accordion>
+
+  <Accordion title="editSettings — Update Settings">
+    **Type:** Write
+
+    Updates one or more global server settings. Only the fields provided in the request body are changed.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Note>
+  Use `getSettings` first to inspect the current configuration before submitting changes with `editSettings`. Misconfigured settings (such as incorrect SMTP credentials) can disrupt server functionality.
+</Note>

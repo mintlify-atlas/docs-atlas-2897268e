@@ -1,0 +1,86 @@
+---
+title: 'Public: Stations'
+description: 'Public station listings, schedules, podcasts, on-demand content, and song request endpoints. No API key required.'
+---
+
+The **Public: Stations** resource exposes station-level public data including the station list, schedules, podcasts, on-demand tracks, media art, and song request submission. All operations in this resource are unauthenticated.
+
+<Info>
+  These operations are public. You do not need to configure an API key in your AzuraCast credentials to use them.
+</Info>
+
+## Resource selector
+
+In the node, set **Resource** to `Public: Stations` (value: `resource_public_stations`).
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="Station listings">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getStations` | Get Stations | `GET /stations` | Returns a list of all public-facing stations on the AzuraCast instance. |
+    | `getStation` | Get Station | `GET /station/{station_id}` | Returns details for a single station. |
+  </Accordion>
+
+  <Accordion title="Schedule">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getSchedule` | Get Schedule | `GET /station/{station_id}/schedule` | Returns the upcoming broadcast schedule for a station. |
+  </Accordion>
+
+  <Accordion title="On-demand content">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getStationOnDemand` | Get Station On Demand | `GET /station/{station_id}/ondemand` | Returns the list of tracks available for on-demand listening. |
+    | `getStationOnDemandDownload` | Get Station On Demand Download | `GET /station/{station_id}/ondemand/download/{media_id}` | Returns a download link for a specific on-demand track. |
+  </Accordion>
+
+  <Accordion title="Song requests">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getRequestableSongs` | Get Requestable Songs | `GET /station/{station_id}/requests` | Returns the list of songs that listeners can request. |
+    | `submitSongRequest` | Submit Song Request | `POST /station/{station_id}/request/{request_id}` | Submits a song request for the specified station. |
+  </Accordion>
+
+  <Accordion title="Podcasts">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getStationPublicPodcasts` | Get Station Public Podcasts | `GET /station/{station_id}/podcasts` | Returns all public podcasts for a station. |
+    | `getStationPublicPodcast` | Get Station Public Podcast | `GET /station/{station_id}/podcasts/{podcast_id}` | Returns details for a single podcast. |
+    | `getStationPublicPodcastEpisodes` | Get Station Public Podcast Episodes | `GET /station/{station_id}/podcasts/{podcast_id}/episodes` | Returns all episodes for a podcast. |
+    | `getStationPublicPodcastEpisode` | Get Station Public Podcast Episode | `GET /station/{station_id}/podcasts/{podcast_id}/episodes/{episode_id}` | Returns details for a single podcast episode. |
+  </Accordion>
+
+  <Accordion title="Art and media">
+    | Operation ID | Name | HTTP | Description |
+    |---|---|---|---|
+    | `getMediaArt` | Get Media Art | `GET /station/{station_id}/art/{media_id}` | Returns the album art image for a media file. |
+    | `getStreamerArt` | Get Streamer Art | `GET /station/{station_id}/streamer/{streamer_id}/art` | Returns the profile art for a streamer/DJ. |
+    | `getPodcastArt` | Get Podcast Art | `GET /station/{station_id}/podcasts/{podcast_id}/art` | Returns the cover art for a podcast. |
+    | `getPodcastEpisodeArt` | Get Podcast Episode Art | `GET /station/{station_id}/podcasts/{podcast_id}/episodes/{episode_id}/art` | Returns the cover art for a podcast episode. |
+    | `getPodcastEpisodeMedia` | Get Podcast Episode Media | `GET /station/{station_id}/podcasts/{podcast_id}/episodes/{episode_id}/download` | Returns the audio file for a podcast episode. |
+  </Accordion>
+</AccordionGroup>
+
+## Usage example
+
+To list all stations available on an AzuraCast instance:
+
+```text
+Resource  → Public: Stations
+Operation → Get Stations
+```
+
+To submit a song request:
+
+```text
+Resource  → Public: Stations
+Operation → Submit Song Request
+```
+
+Then provide the **Station ID** and the **Request ID** for the track you want to request.
+
+<Tip>
+  Use **Get Requestable Songs** before **Submit Song Request** to discover the valid request IDs for a station.
+</Tip>

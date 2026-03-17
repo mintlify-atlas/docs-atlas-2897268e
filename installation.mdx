@@ -1,0 +1,53 @@
+---
+title: "Installation"
+description: "Install the AzuraCast community node in n8n."
+---
+
+## Install via n8n UI
+
+The recommended way to install community nodes is through the n8n interface.
+
+<Steps>
+  <Step title="Open Community Nodes settings">
+    In your n8n instance, go to **Settings** → **Community Nodes**.
+  </Step>
+  <Step title="Click Install">
+    Click the **Install** button to open the installation dialog.
+  </Step>
+  <Step title="Enter the package name">
+    Paste the following package name into the input field:
+
+    ```text
+    @renebello/n8n-nodes-azuracast
+    ```
+  </Step>
+  <Step title="Confirm installation">
+    Accept the community node risk acknowledgment and click **Install**. n8n will download and register the node automatically.
+  </Step>
+</Steps>
+
+Once installed, the **AzuraCast** node will appear in the node panel under community nodes.
+
+## Install via npm (self-hosted)
+
+If you run a self-hosted n8n instance and manage dependencies directly, you can install the package with npm.
+
+```bash
+npm install @renebello/n8n-nodes-azuracast
+```
+
+After installing, restart your n8n process so it picks up the new node.
+
+<Note>
+  The npm install path requires your n8n instance to load community nodes from the local `node_modules` directory. Check the [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/) for your deployment's configuration requirements.
+</Note>
+
+## Discovery requirements
+
+This package meets all n8n community node discovery requirements:
+
+- Package name starts with `n8n-nodes-` (scoped as `@renebello/n8n-nodes-azuracast`)
+- `keywords` includes `n8n-community-node-package`
+- `package.json` includes an `n8n` block that declares the compiled node and credential paths
+
+These are the conditions n8n uses to recognize and load community node packages.

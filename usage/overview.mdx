@@ -1,0 +1,50 @@
+---
+title: "Usage Overview"
+description: "How to use the AzuraCast node in an n8n workflow — from adding it to the canvas to executing API requests."
+---
+
+The AzuraCast node connects n8n workflows to the full AzuraCast Web API. All 263 operations across 27 resource categories are available from a single node.
+
+## How it works
+
+<Steps>
+  <Step title="Add the node to your canvas">
+    Search for **AzuraCast** in the n8n node panel and drag it onto your workflow canvas.
+  </Step>
+  <Step title="Configure credentials">
+    Select or create an **AzuraCast API** credential. You need a Base URL (e.g. `https://radio.example.com`) and, for protected endpoints, an API key.
+  </Step>
+  <Step title="Select a Resource">
+    Choose the API domain you want to work with, such as **Stations Media**, **Stations Playlists**, or **Administration Users**. Resources correspond to official AzuraCast API tags.
+  </Step>
+  <Step title="Select an Operation">
+    Pick the specific endpoint (action) within that resource. The node subtitle in n8n updates to show the current operation name, making it easy to identify at a glance what each node does in a larger workflow.
+  </Step>
+  <Step title="Fill in the fields">
+    Only the fields relevant to the chosen operation are shown — path parameters, required query/body fields, and optional collections. Fill in the required inputs and expand optional sections as needed.
+  </Step>
+  <Step title="Execute">
+    Run the node. The response is automatically parsed and returned as JSON, binary, or text output depending on the endpoint.
+  </Step>
+</Steps>
+
+## What's covered
+
+<CardGroup cols={2}>
+  <Card title="Resources and Operations" href="/usage/resources-and-operations">
+    All 27 resource categories and how operations are named from the AzuraCast OpenAPI spec.
+  </Card>
+  <Card title="Request Body" href="/usage/request-body">
+    Auto-generated fields, path/query/body parameters, multipart uploads, and body mode overrides.
+  </Card>
+  <Card title="Response Handling" href="/usage/response-handling">
+    JSON, binary, and text response formats, plus the Return Full Response option.
+  </Card>
+  <Card title="Advanced Options" href="/usage/advanced-options">
+    Custom headers, body mode overrides, response format control, and legacy compatibility.
+  </Card>
+</CardGroup>
+
+<Note>
+  Legacy workflows that use the `operationId` parameter or `jsonBody`/`rawBody` fields from earlier node versions continue to work without changes.
+</Note>

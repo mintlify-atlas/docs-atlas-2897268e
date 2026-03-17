@@ -1,0 +1,115 @@
+---
+title: "Request Body"
+description: "How the AzuraCast node builds request bodies — from auto-generated fields to manual overrides for JSON, raw, binary, and multipart operations."
+---
+
+## Auto mode (recommended)
+
+By default, the node operates in **Auto** body mode. Fields are generated directly from the AzuraCast OpenAPI specification for each operation. You do not need to construct request bodies manually.
+
+When an operation is selected, the node renders exactly the inputs that endpoint expects:
+
+### Path parameters
+
+URL path tokens like `{stationId}` and `{id}` appear as required string fields. Values are URL-encoded before being substituted into the request path.
+
+```
+Station ID   [123        ]
+ID           [abc-def-456]
+```
+
+If a required path parameter is left empty, the node throws an error before sending the request.
+
+### Query parameters
+
+Required query parameters appear as top-level required fields. Optional query parameters are grouped in a collapsible **Optional Query Parameters** section.
+
+```
+Required query field:  search  [my query     ]
+
+Optional Query Parameters
+  + Add Optional Query Parameters
+    rowCount   [25   ]
+    current    [1    ]
+```
+
+### Body fields
+
+Required body fields appear at the top level. Optional body fields are grouped in a collapsible **Optional Body Fields** section.
+
+Field types match the OpenAPI schema: text, number, boolean, dropdown (enum), or JSON editor for object/array values.
+
+**Example — creating a playlist:**
+
+```json
+{
+  "name": "Morning Classics",
+  "type": "default",
+  "source": "songs",
+  "order": "shuffle",
+  "is_enabled": true,
+  "weight": 3
+}
+```
+
+In the node UI, `name`, `type`, and `source` appear as required fields. `order`, `is_enabled`, and `weight` appear inside **Optional Body Fields**.
+
+## Multipart form-data upload
+
+For file upload endpoints (e.g. **Stations Media → Upload File**), the node automatically uses multipart form-data. Two extra fields appear:
+
+| Field | Default | Description |
+|---|---|---|
+| **Input Data Field Name** | `data` | The n8n binary property that contains the file to upload |
+| **File Field Name** | `file` | The multipart field name the API expects for the file |
+
+The node reads the binary data from the specified n8n item property, wraps it in a `Blob` with the correct MIME type, and attaches it to the multipart form alongside any other required text fields.
+
+<Tip>
+  Connect a **Read Binary File** or **HTTP Request** node upstream to get binary data into the `data` property before passing it to the AzuraCast node.
+</Tip>
+
+## Body Mode Override
+
+The **Body Mode Override** setting in the Advanced section lets you take manual control over how the request body is built. Use **Auto** (the default) for all standard operations.
+
+<Tabs>
+  <Tab title="Auto">
+    Fields are generated from the OpenAPI spec. This is the correct mode for all standard operations and is selected by default.
+  </Tab>
+  <Tab title="JSON">
+    Bypasses generated fields and sends a raw JSON object you provide in the **Manual JSON Body** editor.
+
+    ```json
+    {
+      "name": "My Station",
+      "timezone": "UTC"
+    }
+    ```
+
+    Use this when you need to send a body that differs from the generated schema, or when testing edge cases.
+  </Tab>
+  <Tab title="Raw">
+    Sends the content of the **Manual Raw Body** field as a plain string. Useful for endpoints that accept plain text, XML, or other non-JSON content types.
+  </Tab>
+  <Tab title="Binary">
+    Reads a binary property from the current n8n item and sends it as the request body directly. Set **Manual Input Data Field Name** to the property containing the binary data (default: `data`).
+  </Tab>
+  <Tab title="Multipart Form-Data">
+    Manually constructs a multipart form. You provide:
+    - **Manual Input Data Field Name** — binary property to attach as a file
+    - **Manual Multipart File Field Name** — form field name for the file (default: `file`)
+    - **Manual Multipart Fields (JSON)** — additional form text fields as a JSON object
+
+    ```json
+    { "title": "My Upload", "artist": "Test Artist" }
+    ```
+  </Tab>
+  <Tab title="None">
+    Sends no request body. Use for GET, DELETE, or other endpoints that do not accept a body.
+  </Tab>
+</Tabs>
+
+<Warning>
+  Body Mode Override replaces the auto-generated fields entirely. When set to anything other than **Auto**, the operation-specific body fields are ignored.
+</Warning>

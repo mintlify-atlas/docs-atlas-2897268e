@@ -1,0 +1,86 @@
+---
+title: "Administration: Debugging"
+description: Administrator-level debugging tools for inspecting queues, triggering sync tasks, running Telnet commands, and diagnosing station playback issues.
+---
+
+The **Administration: Debugging** resource exposes internal diagnostic tools that help administrators troubleshoot AzuraCast. Operations include inspecting and clearing system and station queues, running background sync tasks on demand, previewing the next-up song for a station, and issuing raw Telnet commands to the AutoDJ.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_debugging
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="adminDebugClearCache — Clear System Cache">
+    **Type:** Write
+
+    Clears the entire AzuraCast application cache. Useful when configuration changes are not reflected in the UI or API responses.
+  </Accordion>
+
+  <Accordion title="adminDebugClearQueue — Clear Global AutoDJ Queue">
+    **Type:** Write
+
+    Clears the global AutoDJ playback queue across the server.
+  </Accordion>
+
+  <Accordion title="adminDebugClearStationQueue — Clear Station AutoDJ Queue">
+    **Type:** Write
+
+    Clears the AutoDJ playback queue for a specific station, forcing it to re-evaluate playlist ordering.
+  </Accordion>
+
+  <Accordion title="adminDebugRunSyncTask — Run Sync Task">
+    **Type:** Write
+
+    Manually triggers a specific background synchronization task (e.g. media re-scan, playlist update) without waiting for the scheduled run.
+  </Accordion>
+
+  <Accordion title="adminDebugStationNextSong — Get Station Next Song">
+    **Type:** Read
+
+    Returns the track that the AutoDJ has queued as the next song for a specific station.
+  </Accordion>
+
+  <Accordion title="adminDebugStationNowPlaying — Get Station Now Playing (Debug)">
+    **Type:** Read
+
+    Returns the raw now-playing data for a station as seen internally by the AzuraCast backend, bypassing public-facing caches.
+  </Accordion>
+
+  <Accordion title="getAdminDebugQueues — List Debug Queues">
+    **Type:** Read
+
+    Returns information about all current AutoDJ and background processing queues.
+  </Accordion>
+
+  <Accordion title="getAdminDebugStations — List Stations for Debugging">
+    **Type:** Read
+
+    Returns a list of all stations along with their current debug-relevant state information.
+  </Accordion>
+
+  <Accordion title="getAdminDebugSyncTasks — List Sync Tasks">
+    **Type:** Read
+
+    Returns all registered background sync tasks and their last-run timestamps, allowing you to identify stalled or overdue tasks.
+  </Accordion>
+
+  <Accordion title="putAdminDebugTelnetCommand — Send Telnet Command">
+    **Type:** Write
+
+    Sends a raw Telnet command directly to the Liquidsoap or Icecast AutoDJ process. Intended for advanced diagnostics only.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Warning>
+  `putAdminDebugTelnetCommand` sends commands directly to the AutoDJ engine. Incorrect commands can interrupt live broadcasts or destabilize the playback process. Use with caution in production environments.
+</Warning>

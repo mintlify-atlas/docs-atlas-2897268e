@@ -1,0 +1,37 @@
+---
+title: 'Public: Miscellaneous'
+description: 'Instance-level public endpoints for server status, time, and the OpenAPI specification. No API key required.'
+---
+
+The **Public: Miscellaneous** resource provides general instance-level endpoints that expose server health, current time, and the AzuraCast OpenAPI specification. These endpoints are publicly accessible and require no authentication.
+
+<Info>
+  These operations are public. You do not need to configure an API key in your AzuraCast credentials to use them.
+</Info>
+
+## Resource selector
+
+In the node, set **Resource** to `Public: Miscellaneous` (value: `resource_public_miscellaneous`).
+
+## Operations
+
+| Operation ID | Name | HTTP | Description |
+|---|---|---|---|
+| `getStatus` | Get Status | `GET /status` | Returns the current health and status of the AzuraCast instance. Useful for connectivity checks and monitoring. |
+| `getTime` | Get Time | `GET /time` | Returns the current server time in multiple formats, including UTC and the instance's configured timezone. |
+| `getOpenApiSpec` | Get OpenAPI Spec | `GET /openapi.yml` | Returns the full OpenAPI specification for the AzuraCast API in YAML format. |
+
+## Usage example
+
+To verify that your AzuraCast instance is reachable before running other operations:
+
+```text
+Resource  → Public: Miscellaneous
+Operation → Get Status
+```
+
+No additional parameters are required for any of these operations.
+
+<Tip>
+  **Get OpenAPI Spec** returns the full machine-readable API contract for your AzuraCast installation. You can pass its output to other tools for dynamic API exploration or code generation.
+</Tip>

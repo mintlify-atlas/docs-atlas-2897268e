@@ -1,0 +1,44 @@
+---
+title: "Stations: Queue"
+description: "Inspect and manage the upcoming playback queue for an AzuraCast station."
+---
+
+The **Stations: Queue** resource lets you read and remove items from a station's upcoming playback queue — useful for automating queue monitoring or clearing specific scheduled items from a workflow.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_queue
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="deleteQueueItem — Delete a queue item">
+    **Type:** Write
+
+    Removes a specific item from the station's playback queue by its ID.
+  </Accordion>
+
+  <Accordion title="getQueue — List the playback queue">
+    **Type:** Read
+
+    Returns a list of all items currently scheduled in the station's upcoming playback queue.
+  </Accordion>
+
+  <Accordion title="getQueueItem — Retrieve a queue item">
+    **Type:** Read
+
+    Returns the details of a single queue item by its ID, including the media it references and its scheduled play time.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

@@ -1,0 +1,34 @@
+---
+title: "Introduction"
+description: "Connect AzuraCast to your n8n workflows with full OpenAPI coverage."
+---
+
+`@renebello/n8n-nodes-azuracast` is an n8n community node that integrates [AzuraCast](https://www.azuracast.com/) with [n8n](https://n8n.io/) through the official AzuraCast Web API.
+
+**AzuraCast** is a self-hosted web radio management platform. It handles stations, media libraries, playlists, listener requests, webhooks, reports, and administrative operations — all accessible through a documented REST API.
+
+**n8n** is a workflow automation platform that lets you connect services, transform data, and trigger actions without writing full application code.
+
+This node bridges the two: every AzuraCast API operation (263 in total) is available inside an n8n workflow as a selectable action. You can automate now-playing updates, manage playlists, handle listener requests, trigger webhooks, and run administrative tasks — all from n8n.
+
+## What you get
+
+- A single **AzuraCast** node covering all 263 OpenAPI operations
+- Actions organized by official AzuraCast API resource tags (e.g. `Public Now Playing`, `Stations Media`, `Administration Users`)
+- Support for path parameters, query parameters, JSON bodies, file uploads, and binary responses
+- Public endpoint access without an API key; protected endpoint access with one
+- Compatible with n8n nodes API v1
+
+## Get started
+
+<Columns cols={3}>
+  <Card title="Installation" icon="download" href="/installation">
+    Install the community node from n8n Settings or via npm.
+  </Card>
+  <Card title="Quickstart" icon="bolt" href="/quickstart">
+    Build your first AzuraCast workflow in minutes.
+  </Card>
+  <Card title="Credentials" icon="key" href="/credentials">
+    Configure your AzuraCast API credentials in n8n.
+  </Card>
+</Columns>

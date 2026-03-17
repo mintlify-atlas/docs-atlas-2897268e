@@ -1,0 +1,134 @@
+---
+title: "Stations: Playlists"
+description: "Create, edit, reorder, import, and manage playlists for a specific AzuraCast station."
+---
+
+The **Stations: Playlists** resource lets you manage all playlists for a station — creating and editing playlists, controlling their order, importing and exporting, toggling enabled state, cloning, and managing the playlist queue.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_playlists
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addPlaylist — Create a new playlist">
+    **Type:** Write
+
+    Creates a new playlist for the station. Accepts a JSON body with playlist configuration (name, type, schedule, etc.).
+  </Accordion>
+
+  <Accordion title="deleteEmptyPlaylist — Delete empty playlists">
+    **Type:** Write
+
+    Removes all playlists that contain no media files from the station.
+  </Accordion>
+
+  <Accordion title="deletePlaylist — Delete a playlist">
+    **Type:** Write
+
+    Permanently deletes a specific playlist by its ID.
+  </Accordion>
+
+  <Accordion title="deletePlaylistQueue — Clear the playlist queue">
+    **Type:** Write
+
+    Clears all items from the play queue of a specific playlist.
+  </Accordion>
+
+  <Accordion title="editPlaylist — Update a playlist">
+    **Type:** Write
+
+    Updates the configuration of an existing playlist. Accepts a JSON body with updated fields.
+  </Accordion>
+
+  <Accordion title="getExportPlaylist — Export a playlist">
+    **Type:** Read
+
+    Exports a playlist in a standard format (e.g., M3U or PLS). Returns the playlist file as binary data.
+  </Accordion>
+
+  <Accordion title="getPlaylist — Retrieve a playlist">
+    **Type:** Read
+
+    Returns the full configuration and metadata for a single playlist by its ID.
+  </Accordion>
+
+  <Accordion title="getPlaylists — List all playlists">
+    **Type:** Read
+
+    Returns a list of all playlists configured for the station.
+  </Accordion>
+
+  <Accordion title="getStationPlaylistApplyTo — Retrieve apply-to media for a playlist">
+    **Type:** Read
+
+    Returns the set of media that a playlist's schedule currently applies to.
+  </Accordion>
+
+  <Accordion title="getStationPlaylistOrder — Retrieve playlist song order">
+    **Type:** Read
+
+    Returns the ordered list of songs in a sequential playlist.
+  </Accordion>
+
+  <Accordion title="getStationPlaylistQueue — Retrieve the playlist queue">
+    **Type:** Read
+
+    Returns the current queue of items scheduled to play for a specific playlist.
+  </Accordion>
+
+  <Accordion title="postStationPlaylistClone — Clone a playlist">
+    **Type:** Write
+
+    Creates a copy of an existing playlist, optionally including its media assignments.
+  </Accordion>
+
+  <Accordion title="postStationPlaylistImport — Import a playlist">
+    **Type:** Write
+
+    Imports a playlist from an uploaded file (e.g., M3U or PLS). Supports multipart file upload.
+  </Accordion>
+
+  <Accordion title="postStationPodcastBatch — Run a batch action on podcast playlists">
+    **Type:** Write
+
+    Applies a batch action to podcast-linked playlists. Accepts a JSON body with the action and target playlist IDs.
+  </Accordion>
+
+  <Accordion title="putReshufflePlaylist — Reshuffle a playlist">
+    **Type:** Write
+
+    Randomly reshuffles the song order within a playlist.
+  </Accordion>
+
+  <Accordion title="putStationPlaylistApplyTo — Apply a playlist to media">
+    **Type:** Write
+
+    Assigns a playlist to a set of media files. Accepts a JSON body with the media IDs.
+  </Accordion>
+
+  <Accordion title="putStationPlaylistOrder — Update playlist song order">
+    **Type:** Write
+
+    Sets the explicit song order for a sequential playlist. Accepts an ordered array of media IDs in the JSON body.
+  </Accordion>
+
+  <Accordion title="putTogglePlaylist — Toggle a playlist on or off">
+    **Type:** Write
+
+    Enables or disables a playlist without deleting it.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

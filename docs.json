@@ -1,122 +1,114 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "n8n Nodes AzuraCast",
+  "theme": "sequoia",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#848c8e",
+    "light": "#11161e",
+    "dark": "#cfd0d2"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://media.brand.dev/2b01fe20-c04b-4a1d-a2f9-1d2789c50a7a.jpg",
+  "logo": {
+    "light": "https://media.brand.dev/5ffd6ce4-2434-4b4b-920a-f8cacac8b48b.svg",
+    "dark": "https://media.brand.dev/5ffd6ce4-2434-4b4b-920a-f8cacac8b48b.svg"
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/renebell0/n8n-nodes-azuracast"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/renebell0/n8n-nodes-azuracast"
+    }
+  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Get Started",
+            "pages": ["introduction", "installation", "quickstart"]
+          },
+          {
+            "group": "Configuration",
+            "pages": ["credentials", "compatibility"]
+          },
+          {
+            "group": "Usage",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "usage/overview",
+              "usage/resources-and-operations",
+              "usage/request-body",
+              "usage/response-handling",
+              "usage/advanced-options"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Contributing",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "contributing/publishing",
+              "contributing/regenerating-operations",
+              "contributing/changelog"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API Resources",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Public",
             "pages": [
-              "api-reference/introduction"
+              "resources/public-now-playing",
+              "resources/public-stations",
+              "resources/public-miscellaneous"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "My Account",
+            "pages": ["resources/my-account"]
+          },
+          {
+            "group": "Stations",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "resources/stations-general",
+              "resources/stations-media",
+              "resources/stations-playlists",
+              "resources/stations-broadcasting",
+              "resources/stations-mount-points",
+              "resources/stations-hls-streams",
+              "resources/stations-podcasts",
+              "resources/stations-queue",
+              "resources/stations-remote-relays",
+              "resources/stations-reports",
+              "resources/stations-sftp-users",
+              "resources/stations-streamers-djs",
+              "resources/stations-web-hooks"
             ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "resources/administration-general",
+              "resources/administration-stations",
+              "resources/administration-users",
+              "resources/administration-roles",
+              "resources/administration-settings",
+              "resources/administration-backups",
+              "resources/administration-custom-fields",
+              "resources/administration-storage-locations",
+              "resources/administration-debugging"
+            ]
+          },
+          {
+            "group": "Miscellaneous",
+            "pages": ["resources/miscellaneous"]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    ]
   }
 }

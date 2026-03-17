@@ -1,0 +1,37 @@
+---
+title: 'Public: Now Playing'
+description: 'Real-time now-playing data for all stations or a specific station. No API key required.'
+---
+
+The **Public: Now Playing** resource provides live playback information broadcast by AzuraCast stations. Because this data is publicly available, no API key or credentials are needed to use these operations.
+
+<Info>
+  These operations are public. You do not need to configure an API key in your AzuraCast credentials to use them.
+</Info>
+
+## Resource selector
+
+In the node, set **Resource** to `Public: Now Playing` (value: `resource_public_now_playing`).
+
+## Operations
+
+| Operation ID | Name | HTTP | Description |
+|---|---|---|---|
+| `getAllNowPlaying` | Get All Now Playing | `GET /nowplaying` | Returns the current now-playing snapshot for every station on the AzuraCast instance. |
+| `getStationNowPlaying` | Get Station Now Playing | `GET /nowplaying/{station_id}` | Returns the current now-playing snapshot for a single station identified by its ID or short name. |
+| `getStationNowPlayingArt` | Get Station Now Playing Art | `GET /nowplaying/{station_id}/art` | Returns the album art image for the track currently playing on the specified station. |
+
+## Usage example
+
+To fetch real-time data for a single station:
+
+```text
+Resource  → Public: Now Playing
+Operation → Get Station Now Playing
+```
+
+Provide the station ID or short code in the **Station** field that appears after selecting the operation.
+
+<Tip>
+  Use **Get All Now Playing** to retrieve data for every station in a single request — useful when building dashboards that display multiple stations at once.
+</Tip>

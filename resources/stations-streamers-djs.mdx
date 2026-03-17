@@ -1,0 +1,102 @@
+---
+title: "Stations: Streamers/DJs"
+description: "Create, edit, and manage live DJ and streamer accounts for an AzuraCast station, including broadcast recordings."
+---
+
+The **Stations: Streamers/DJs** resource manages the accounts that live DJs and streamers use to connect to a station — creating and editing streamer profiles, uploading streamer artwork, and accessing or managing their recorded broadcast archives.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_streamers_djs
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addStreamer — Create a streamer account">
+    **Type:** Write
+
+    Creates a new streamer/DJ account for the station. Accepts a JSON body with the username, password, and display name.
+  </Accordion>
+
+  <Accordion title="deleteStreamer — Delete a streamer account">
+    **Type:** Write
+
+    Permanently deletes a streamer/DJ account by its ID.
+  </Accordion>
+
+  <Accordion title="deleteStreamerArt — Delete streamer artwork">
+    **Type:** Write
+
+    Removes the profile artwork image for a specific streamer account.
+  </Accordion>
+
+  <Accordion title="editStreamer — Update a streamer account">
+    **Type:** Write
+
+    Updates the configuration of an existing streamer/DJ account. Accepts a JSON body with the fields to change.
+  </Accordion>
+
+  <Accordion title="getStationAllBroadcasts — List all broadcasts for the station">
+    **Type:** Read
+
+    Returns a list of all recorded live broadcasts across all streamers for the station.
+  </Accordion>
+
+  <Accordion title="getStationStreamerBroadcasts — List broadcasts for a streamer">
+    **Type:** Read
+
+    Returns a list of recorded broadcasts for a specific streamer account.
+  </Accordion>
+
+  <Accordion title="getStationStreamerDeleteBroadcast — Delete a streamer broadcast recording">
+    **Type:** Write
+
+    Deletes a specific recorded broadcast file for a streamer. Despite its `get` prefix, this is a destructive operation.
+  </Accordion>
+
+  <Accordion title="getStationStreamerDownloadBroadcast — Download a broadcast recording">
+    **Type:** Read
+
+    Downloads a specific recorded broadcast file for a streamer. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getStreamer — Retrieve a streamer account">
+    **Type:** Read
+
+    Returns the full configuration details for a single streamer/DJ account by its ID.
+  </Accordion>
+
+  <Accordion title="getStreamers — List all streamer accounts">
+    **Type:** Read
+
+    Returns a list of all streamer/DJ accounts configured for the station.
+  </Accordion>
+
+  <Accordion title="postStationStreamerBroadcastsBatch — Run a batch action on broadcast recordings">
+    **Type:** Write
+
+    Applies a batch action (such as delete) to a set of broadcast recordings. Accepts a JSON body with the recording IDs and the action to perform.
+  </Accordion>
+
+  <Accordion title="postStreamerArt — Upload streamer artwork">
+    **Type:** Write
+
+    Uploads a profile artwork image for a specific streamer account. Supports binary (multipart) upload.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>
+
+<Tip>
+  `getStationStreamerDeleteBroadcast` has a `get` prefix in its operation ID but performs a deletion. Use it with care — there is no undo.
+</Tip>

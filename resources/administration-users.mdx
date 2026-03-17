@@ -1,0 +1,74 @@
+---
+title: "Administration: Users"
+description: Administrator-level management of AzuraCast user accounts and their login tokens.
+---
+
+The **Administration: Users** resource allows administrators to create, retrieve, update, and delete user accounts across the entire AzuraCast installation. It also covers managing login tokens associated with individual user accounts.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_users
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addLoginToken — Create Login Token">
+    **Type:** Write
+
+    Creates a new login token for a specific user account, which can be used for password-less authentication.
+  </Accordion>
+
+  <Accordion title="addUser — Create User">
+    **Type:** Write
+
+    Creates a new AzuraCast user account with the provided credentials and role assignments.
+  </Accordion>
+
+  <Accordion title="deleteLoginToken — Delete Login Token">
+    **Type:** Write
+
+    Deletes a specific login token associated with a user account.
+  </Accordion>
+
+  <Accordion title="deleteUser — Delete User">
+    **Type:** Write
+
+    Permanently deletes a user account from the AzuraCast installation.
+  </Accordion>
+
+  <Accordion title="editUser — Update User">
+    **Type:** Write
+
+    Updates the profile, credentials, or role assignments of an existing user account.
+  </Accordion>
+
+  <Accordion title="getLoginToken — Get Login Token">
+    **Type:** Read
+
+    Retrieves a specific login token record associated with a user account.
+  </Accordion>
+
+  <Accordion title="getLoginTokens — List Login Tokens">
+    **Type:** Read
+
+    Returns all login tokens associated with a specific user account.
+  </Accordion>
+
+  <Accordion title="getUser — Get User">
+    **Type:** Read
+
+    Retrieves the full profile and role information for a single user account.
+  </Accordion>
+
+  <Accordion title="getUsers — List All Users">
+    **Type:** Read
+
+    Returns a list of all user accounts registered on the AzuraCast installation.
+  </Accordion>
+</AccordionGroup>

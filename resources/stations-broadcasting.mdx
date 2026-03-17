@@ -1,0 +1,96 @@
+---
+title: "Stations: Broadcasting"
+description: "Control broadcasting services, manage Liquidsoap configuration, and handle Stereo Tool settings for an AzuraCast station."
+---
+
+The **Stations: Broadcasting** resource covers operations for managing the station's broadcasting backend — starting, stopping, and restarting frontend and backend services, reading and writing Liquidsoap configuration, and managing Stereo Tool audio processing files.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_broadcasting
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="deleteStereoToolConfiguration — Delete the Stereo Tool configuration">
+    **Type:** Write
+
+    Removes the currently uploaded Stereo Tool configuration file from the station.
+  </Accordion>
+
+  <Accordion title="doBackendServiceAction — Perform a backend service action">
+    **Type:** Write
+
+    Executes an action (such as start, stop, or restart) on the station's backend service (Liquidsoap). Requires the action name as a path parameter.
+  </Accordion>
+
+  <Accordion title="doFrontendServiceAction — Perform a frontend service action">
+    **Type:** Write
+
+    Executes an action (such as start, stop, or restart) on the station's frontend service (Icecast/Shoutcast). Requires the action name as a path parameter.
+  </Accordion>
+
+  <Accordion title="exportStationLiquidsoapConfig — Export the Liquidsoap config">
+    **Type:** Read
+
+    Downloads the current Liquidsoap configuration file for the station. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getServiceStatus — Retrieve service status">
+    **Type:** Read
+
+    Returns the current running status of the station's frontend and backend broadcasting services.
+  </Accordion>
+
+  <Accordion title="getStationLiquidsoapConfig — Retrieve the Liquidsoap config">
+    **Type:** Read
+
+    Returns the Liquidsoap configuration content as a text or JSON response.
+  </Accordion>
+
+  <Accordion title="getStereoToolConfiguration — Retrieve the Stereo Tool configuration">
+    **Type:** Read
+
+    Downloads the currently uploaded Stereo Tool configuration file. Returns binary data.
+  </Accordion>
+
+  <Accordion title="importStationLiquidsoapConfig — Import a Liquidsoap config">
+    **Type:** Write
+
+    Uploads and applies a new Liquidsoap configuration file. Supports binary (multipart) upload.
+  </Accordion>
+
+  <Accordion title="postStereoToolConfiguration — Upload a Stereo Tool configuration">
+    **Type:** Write
+
+    Uploads a new Stereo Tool configuration file for the station. Supports binary (multipart) upload.
+  </Accordion>
+
+  <Accordion title="putStationLiquidsoapConfig — Update the Liquidsoap config">
+    **Type:** Write
+
+    Saves an updated Liquidsoap configuration to the station. Accepts the config content in the request body.
+  </Accordion>
+
+  <Accordion title="restartServices — Restart all station services">
+    **Type:** Write
+
+    Restarts both the frontend and backend broadcasting services for the station in a single call.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>
+
+<Tip>
+  Use `getServiceStatus` before calling `doBackendServiceAction` or `doFrontendServiceAction` to confirm the current state of each service before issuing start or stop commands.
+</Tip>

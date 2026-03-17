@@ -1,0 +1,110 @@
+---
+title: "Stations: General"
+description: "Manage station profiles, custom assets, fallback files, logs, and now-playing updates for a specific AzuraCast station."
+---
+
+The **Stations: General** resource covers core station management operations — reading and editing station profiles, uploading or removing custom assets and fallback audio files, and retrieving station logs.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_general
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="deleteStationCustomAsset — Delete a custom asset">
+    **Type:** Write
+
+    Deletes a custom asset (such as a background image or branding file) from the station. Requires the asset type as a path parameter alongside `stationId`.
+  </Accordion>
+
+  <Accordion title="deleteStationFallback — Delete the station fallback file">
+    **Type:** Write
+
+    Removes the currently configured fallback audio file for the station.
+  </Accordion>
+
+  <Accordion title="getQuota — Retrieve overall storage quota">
+    **Type:** Read
+
+    Returns storage quota information for the station across all storage locations.
+  </Accordion>
+
+  <Accordion title="getQuotaOfType — Retrieve quota for a specific storage type">
+    **Type:** Read
+
+    Returns quota details for a specific storage type. Requires a storage type identifier as a path parameter.
+  </Accordion>
+
+  <Accordion title="getStationCustomAsset — Retrieve a custom asset">
+    **Type:** Read
+
+    Retrieves a specific custom asset file for the station. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getStationFallback — Retrieve the station fallback file">
+    **Type:** Read
+
+    Downloads the current fallback audio file configured for the station. Returns binary data.
+  </Accordion>
+
+  <Accordion title="getStationLog — Retrieve a specific station log">
+    **Type:** Read
+
+    Returns the contents of a named log file for the station. Requires a log key as a path parameter.
+  </Accordion>
+
+  <Accordion title="getStationLogs — List available station logs">
+    **Type:** Read
+
+    Returns a list of all available log files for the station.
+  </Accordion>
+
+  <Accordion title="getStationProfile — Retrieve the public station profile">
+    **Type:** Read
+
+    Returns the public-facing profile information for the station, including name, description, and stream URLs.
+  </Accordion>
+
+  <Accordion title="getStationProfileEdit — Retrieve the editable station profile">
+    **Type:** Read
+
+    Returns the full editable station profile including admin-level configuration fields.
+  </Accordion>
+
+  <Accordion title="postStationCustomAsset — Upload a custom asset">
+    **Type:** Write
+
+    Uploads a new custom asset file for the station. Supports binary (multipart) upload. Requires the asset type as a path parameter.
+  </Accordion>
+
+  <Accordion title="postStationFallback — Upload a station fallback file">
+    **Type:** Write
+
+    Uploads an audio file to use as the station fallback when no media is scheduled. Supports binary (multipart) upload.
+  </Accordion>
+
+  <Accordion title="postStationNowPlayingUpdate — Trigger a now-playing update">
+    **Type:** Write
+
+    Forces an immediate refresh of the now-playing data for the station.
+  </Accordion>
+
+  <Accordion title="putStationProfileEdit — Update the station profile">
+    **Type:** Write
+
+    Saves changes to the station's editable profile. Accepts a JSON body with the updated profile fields.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

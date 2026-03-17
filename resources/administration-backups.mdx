@@ -1,0 +1,56 @@
+---
+title: "Administration: Backups"
+description: Administrator-level operations for managing, running, downloading, and deleting AzuraCast server backups.
+---
+
+The **Administration: Backups** resource lets administrators manage the AzuraCast backup system. You can list existing backups, trigger a new backup run, download backup files, delete old backups, and review the backup process log.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_backups
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="adminBackupsViewLog — View Backup Log">
+    **Type:** Read
+
+    Retrieves the log output from the most recent backup run, useful for diagnosing backup failures.
+  </Accordion>
+
+  <Accordion title="deleteBackup — Delete Backup">
+    **Type:** Write
+
+    Permanently deletes a specific backup file from the server.
+  </Accordion>
+
+  <Accordion title="downloadBackup — Download Backup">
+    **Type:** Read
+
+    Downloads the binary content of a specific backup file.
+  </Accordion>
+
+  <Accordion title="getBackups — List Backups">
+    **Type:** Read
+
+    Returns a list of all backup files currently stored on the server, including their size and creation date.
+  </Accordion>
+
+  <Accordion title="postAdminDoBackup — Run Backup">
+    **Type:** Write
+
+    Triggers an immediate backup of the AzuraCast server. The backup runs asynchronously and its progress can be monitored via `adminBackupsViewLog`.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Note>
+  `postAdminDoBackup` initiates an asynchronous process. Poll `adminBackupsViewLog` to determine when the backup has completed successfully before attempting to use `downloadBackup`.
+</Note>

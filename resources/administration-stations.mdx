@@ -1,0 +1,68 @@
+---
+title: "Administration: Stations"
+description: Administrator-level management of all stations on the server, including creating, editing, deleting, and cloning stations.
+---
+
+The **Administration: Stations** resource provides full CRUD access to every station on the AzuraCast server. Unlike station-scoped resources, these operations allow administrators to create new stations, delete existing ones, retrieve storage location assignments, and clone station configurations.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_stations
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="adminAddStation — Create Station">
+    **Type:** Write
+
+    Creates a new station on the AzuraCast server with the provided configuration.
+  </Accordion>
+
+  <Accordion title="adminDeleteStation — Delete Station">
+    **Type:** Write
+
+    Permanently deletes a station and all its associated data from the server.
+  </Accordion>
+
+  <Accordion title="adminEditStation — Update Station">
+    **Type:** Write
+
+    Updates the configuration of an existing station by its ID.
+  </Accordion>
+
+  <Accordion title="adminGetStation — Get Station">
+    **Type:** Read
+
+    Retrieves the full administrative configuration record for a single station.
+  </Accordion>
+
+  <Accordion title="adminGetStations — List All Stations">
+    **Type:** Read
+
+    Returns a list of all stations on the server, including their administrative configuration details.
+  </Accordion>
+
+  <Accordion title="getAdminStationStorageLocations — Get Station Storage Locations">
+    **Type:** Read
+
+    Retrieves the storage locations (media, recordings, podcasts) assigned to a specific station.
+  </Accordion>
+
+  <Accordion title="postAdminStationsClone — Clone Station">
+    **Type:** Write
+
+    Creates a copy of an existing station, duplicating its configuration and optionally its media and playlists.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Note>
+  `adminDeleteStation` is irreversible. All media, playlists, and listener history associated with the station will be permanently removed. Consider downloading a backup before deletion.
+</Note>

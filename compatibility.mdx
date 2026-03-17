@@ -1,0 +1,64 @@
+---
+title: "Compatibility"
+description: "Runtime requirements and compatibility information for n8n-nodes-azuracast."
+---
+
+## n8n compatibility
+
+| Requirement | Value |
+|---|---|
+| n8n nodes API version | v1 |
+| n8n installation type | n8n v1-based (self-hosted or cloud) |
+| Node package format | n8n community node package |
+| Community node discovery | Requires `n8n-community-node-package` keyword and `n8n` block in `package.json` |
+
+This node targets the n8n nodes API v1. It is intended for use with n8n instances running the v1 node runtime. The `n8nNodesApiVersion` field in `package.json` is set to `1`.
+
+## Package details
+
+| Field | Value |
+|---|---|
+| Package name | `@renebello/n8n-nodes-azuracast` |
+| Version | `0.1.4` |
+| License | MIT |
+| Peer dependency | `n8n-workflow: *` (any version) |
+| TypeScript version | 5.x |
+| Compiled output | `dist/` |
+
+## Peer dependency
+
+The package declares `n8n-workflow` as a peer dependency with an open version range (`*`). This means n8n supplies the `n8n-workflow` module from its own installation and the node does not bundle a separate copy. Any version of `n8n-workflow` that ships with n8n v1 is compatible.
+
+## TypeScript and build output
+
+Source files are written in TypeScript 5.x and compiled to `dist/`. The `n8n` block in `package.json` points to the compiled JavaScript paths:
+
+```json
+"n8n": {
+  "n8nNodesApiVersion": 1,
+  "credentials": [
+    "dist/credentials/AzuraCastApi.credentials.js"
+  ],
+  "nodes": [
+    "dist/nodes/AzuraCast/AzuraCast.node.js"
+  ]
+}
+```
+
+n8n loads the compiled files at runtime, not the TypeScript source.
+
+## AzuraCast API coverage
+
+This node was generated from the official AzuraCast OpenAPI specification and covers all published operations:
+
+| Metric | Value |
+|---|---|
+| Operations covered | 263 / 263 |
+| Source | AzuraCast official OpenAPI spec |
+
+When AzuraCast publishes API changes, regenerate and verify coverage with:
+
+```bash
+npm run generate:operations
+npm run verify:operations
+```

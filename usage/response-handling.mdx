@@ -1,0 +1,114 @@
+---
+title: "Response Handling"
+description: "How the AzuraCast node processes API responses — automatic format detection, JSON, binary, and text output, and the Return Full Response option."
+---
+
+## Auto format detection
+
+By default, the **Response Format** setting is **Auto**. The node reads the `responseContentTypes` from the AzuraCast OpenAPI spec for the selected operation and chooses the appropriate format automatically:
+
+| OpenAPI response content type | Resolved format |
+|---|---|
+| `application/json` | JSON |
+| `application/octet-stream`, `audio/*`, `image/*` | Binary |
+| `text/plain`, `text/html`, `text/csv` | Text |
+| *(no content type declared)* | Text |
+
+For most endpoints, Auto resolves to JSON.
+
+## JSON response
+
+JSON is the default format for the majority of AzuraCast API endpoints. The parsed response object is placed directly in the `json` property of the output item.
+
+**Example output item for a station details endpoint:**
+
+```json
+{
+  "id": 1,
+  "name": "My Radio Station",
+  "shortName": "my_radio",
+  "timezone": "UTC",
+  "is_enabled": true,
+  "nowplaying": {
+    "song": {
+      "title": "Example Track",
+      "artist": "Example Artist"
+    }
+  }
+}
+```
+
+Downstream nodes can reference fields with expressions like `{{ $json.name }}` or `{{ $json.nowplaying.song.title }}`.
+
+## Binary response
+
+Endpoints that return files (e.g. backup downloads, media exports, album art) resolve to binary format. The binary data is stored in the item's `binary` property under a configurable key.
+
+- **Output Data Field Name** — the binary property key where the file is stored (default: `data`)
+
+Access the binary in downstream nodes with `{{ $binary.data }}` or the configured property name.
+
+<Note>
+  To write the binary to disk, connect a **Write Binary File** node. To pass it to another HTTP request, connect an **HTTP Request** node using the binary input mode.
+</Note>
+
+## Text response
+
+Endpoints that return plain text, CSV, or HTML produce a string value in the `json` property under the key `data`:
+
+```json
+{
+  "data": "station_id,listeners,peak\n1,42,120\n"
+}
+```
+
+## Return Full Response
+
+Enable **Return Full Response** to include HTTP metadata alongside the response body. This is useful for checking status codes, reading response headers, or handling non-standard API responses.
+
+When enabled, the JSON output includes:
+
+| Field | Description |
+|---|---|
+| `statusCode` | HTTP status code (e.g. `200`, `204`, `404`) |
+| `statusMessage` | HTTP status message (e.g. `OK`) |
+| `headers` | Response headers as a key-value object |
+| `body` | The parsed response body (JSON or text) |
+
+**Example with Return Full Response enabled:**
+
+```json
+{
+  "statusCode": 200,
+  "statusMessage": "OK",
+  "headers": {
+    "content-type": "application/json",
+    "x-powered-by": "AzuraCast"
+  },
+  "body": {
+    "id": 1,
+    "name": "My Radio Station"
+  }
+}
+```
+
+### Binary + Return Full Response
+
+When **Response Format** is **Binary** and **Return Full Response** is enabled, the output combines both:
+
+- **`json`** — contains `statusCode`, `statusMessage`, `headers`, and `bodyLength` (byte count)
+- **`binary`** — contains the file data under the configured **Output Data Field Name**
+
+```json
+{
+  "json": {
+    "statusCode": 200,
+    "statusMessage": "OK",
+    "headers": { "content-type": "application/zip" },
+    "bodyLength": 204800
+  },
+  "binary": {
+    "data": "<binary file data>"
+  }
+}
+```

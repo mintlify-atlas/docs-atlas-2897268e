@@ -1,0 +1,93 @@
+---
+title: "Advanced Options"
+description: "Custom headers, body mode overrides, response format control, binary output naming, and legacy compatibility for the AzuraCast node."
+---
+
+Advanced options are available at the bottom of every AzuraCast node configuration panel. They apply globally to the node execution and are not operation-specific.
+
+## Additional Headers
+
+Enable **Send Additional Headers** to attach custom HTTP headers to every request made by this node.
+
+```
+Send Additional Headers   [toggle ON]
+Additional Headers (JSON) [
+  {
+    "X-Custom-Header": "my-value",
+    "Accept-Language": "en"
+  }
+]
+```
+
+The **Additional Headers (JSON)** field appears when the toggle is enabled. Provide a flat JSON object where each key is a header name and each value is a string.
+
+<Note>
+  Authentication headers (`X-API-Key`, `Authorization`) are added automatically from the credential. You do not need to include them here.
+</Note>
+
+## Body Mode Override
+
+By default this is set to **Auto**, which uses operation-generated fields from the OpenAPI spec. Change this only when you need manual control over the request body.
+
+| Mode | When to use |
+|---|---|
+| **Auto** | Standard usage — fields are generated per operation |
+| **JSON** | Send a custom JSON object instead of generated fields |
+| **Raw** | Send a plain string (XML, text, or other formats) |
+| **Binary** | Send raw binary data from an n8n binary property |
+| **Multipart Form-Data** | Manually compose a multipart form with file and text fields |
+| **None** | Suppress the request body entirely |
+
+See [Request Body](/usage/request-body) for full details on each mode.
+
+## Response Format
+
+By default this is **Auto**, which detects the correct format from the OpenAPI response content type. Override it to force a specific format regardless of the API spec.
+
+| Setting | Behavior |
+|---|---|
+| **Auto** | Determined from the OpenAPI spec for the selected operation |
+| **JSON** | Parse the response as JSON and place it in `json` output |
+| **Binary** | Store the response as binary data |
+| **Text** | Return the response as a plain text string |
+
+<Warning>
+  Forcing an incorrect format (e.g. **JSON** on an endpoint that returns binary) will cause a parse error. Use **Auto** unless you have a specific reason to override.
+</Warning>
+
+## Output Data Field Name
+
+Visible when **Response Format** is set to **Binary**. Specifies the key name in the n8n item's `binary` property where the downloaded file is stored.
+
+- Default: `data`
+- Example: set to `backup` to access the file as `$binary.backup`
+
+## Return Full Response
+
+When enabled, the node includes HTTP metadata in the output alongside the response body:
+
+- `statusCode` — numeric HTTP status (e.g. `200`, `204`)
+- `statusMessage` — HTTP status text (e.g. `OK`, `No Content`)
+- `headers` — response header key-value pairs
+- `body` — the parsed response (or `bodyLength` for binary)
+
+Useful for:
+- Detecting `204 No Content` responses from DELETE endpoints
+- Reading `Location` headers from create/redirect responses
+- Debugging unexpected API behavior
+
+## Legacy compatibility
+
+Earlier versions of this node used a different parameter layout. These legacy parameters are still fully supported and continue to work without modification:
+
+| Legacy parameter | Behavior |
+|---|---|
+| `operationId` | If present, selects the operation directly by ID instead of using the resource/operation dropdowns |
+| `jsonBody` / `rawBody` | If a non-empty legacy body is detected, it is used as-is instead of the auto-generated body fields |
+| `bodyMode` | Legacy body mode field; respected when `bodyModeOverride` is set to **Auto** and a legacy payload is present |
+| `pathParameters` | Legacy path parameter JSON object; values are merged with any auto-generated path fields |
+| `sendQueryParameters` + `queryParameters` | Legacy query parameter controls; merged with auto-generated query fields |
+
+<Info>
+  You do not need to migrate existing workflows. The node detects legacy parameters automatically and uses them without requiring any changes to existing configurations.
+</Info>

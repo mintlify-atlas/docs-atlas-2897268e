@@ -1,0 +1,62 @@
+---
+title: "Administration: Roles"
+description: Administrator-level management of AzuraCast roles and their associated permission sets.
+---
+
+The **Administration: Roles** resource lets administrators define and manage roles, which group together specific permissions and are then assigned to user accounts. You can also retrieve the full list of available permissions to understand what each role can grant.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_roles
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addRole — Create Role">
+    **Type:** Write
+
+    Creates a new role with a specified set of global or per-station permissions.
+  </Accordion>
+
+  <Accordion title="deleteRole — Delete Role">
+    **Type:** Write
+
+    Permanently deletes a role. Users previously assigned this role will lose its associated permissions.
+  </Accordion>
+
+  <Accordion title="editRole — Update Role">
+    **Type:** Write
+
+    Updates the name or permission set of an existing role.
+  </Accordion>
+
+  <Accordion title="getPermissions — List Available Permissions">
+    **Type:** Read
+
+    Returns the full list of permissions that can be assigned to a role, including both global and station-level permissions.
+  </Accordion>
+
+  <Accordion title="getRole — Get Role">
+    **Type:** Read
+
+    Retrieves the configuration and permission set for a single role by its ID.
+  </Accordion>
+
+  <Accordion title="getRoles — List All Roles">
+    **Type:** Read
+
+    Returns all roles defined on the AzuraCast installation.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Note>
+  Use `getPermissions` to discover valid permission identifiers before constructing a role payload for `addRole` or `editRole`.
+</Note>

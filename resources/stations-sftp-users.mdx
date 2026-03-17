@@ -1,0 +1,56 @@
+---
+title: "Stations: SFTP Users"
+description: "Create, edit, and manage SFTP user accounts for uploading media to an AzuraCast station."
+---
+
+The **Stations: SFTP Users** resource manages SFTP accounts that allow external tools and scripts to upload media directly to a station's storage via SFTP.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_sftp_users
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addSftpUser — Create an SFTP user">
+    **Type:** Write
+
+    Creates a new SFTP user account for the station. Accepts a JSON body with the username and password.
+  </Accordion>
+
+  <Accordion title="deleteSftpUser — Delete an SFTP user">
+    **Type:** Write
+
+    Permanently deletes an SFTP user account by its ID.
+  </Accordion>
+
+  <Accordion title="editSftpUser — Update an SFTP user">
+    **Type:** Write
+
+    Updates the credentials or settings of an existing SFTP user. Accepts a JSON body with the fields to change.
+  </Accordion>
+
+  <Accordion title="getSftpUser — Retrieve an SFTP user">
+    **Type:** Read
+
+    Returns the details of a single SFTP user account by its ID.
+  </Accordion>
+
+  <Accordion title="getSftpUsers — List all SFTP users">
+    **Type:** Read
+
+    Returns a list of all SFTP user accounts configured for the station.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>

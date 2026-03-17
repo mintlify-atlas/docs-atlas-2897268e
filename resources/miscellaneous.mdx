@@ -1,0 +1,50 @@
+---
+title: Miscellaneous
+description: General-purpose endpoints for dashboard data, system notifications, and Prometheus metrics.
+---
+
+The **Miscellaneous** resource provides access to endpoints that don't belong to a specific station or administration category. These include dashboard overview data, system notifications, and a Prometheus-compatible metrics endpoint for external monitoring.
+
+## Resource selector value
+
+```
+resource_miscellaneous
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="getDashboardCharts — Get Dashboard Charts">
+    **Type:** Read
+
+    Retrieves aggregated listener and stream statistics formatted for display in the AzuraCast dashboard charts.
+  </Accordion>
+
+  <Accordion title="getDashboardStations — Get Dashboard Stations">
+    **Type:** Read
+
+    Returns a summary of all stations as displayed on the AzuraCast dashboard, including their current status and listener counts.
+  </Accordion>
+
+  <Accordion title="getNotifications — Get Notifications">
+    **Type:** Read
+
+    Retrieves any active system notifications or alerts relevant to the authenticated user, such as pending updates or configuration warnings.
+  </Accordion>
+
+  <Accordion title="getPrometheus — Get Prometheus Metrics">
+    **Type:** Read
+
+    Returns server and station metrics in the Prometheus text exposition format, suitable for scraping by a Prometheus instance.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Note>
+  `getPrometheus` returns data in plain text Prometheus format rather than JSON. Configure your n8n workflow to handle the raw text response if you are forwarding it to an external monitoring system.
+</Note>
+
+<Info>
+  `getDashboardCharts` and `getDashboardStations` require the authenticated user to have access to at least one station. Administrator accounts will see data for all stations.
+</Info>

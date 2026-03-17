@@ -1,0 +1,56 @@
+---
+title: "Administration: Custom Fields"
+description: Administrator-level management of custom metadata fields that can be attached to media tracks across all stations.
+---
+
+The **Administration: Custom Fields** resource allows administrators to define custom metadata fields that appear on media tracks server-wide. These fields let you store and query additional information beyond the standard title, artist, and album metadata.
+
+<Warning>
+  These operations require an AzuraCast API key with **administrator** permissions. Requests made with a standard user or station-scoped API key will be rejected.
+</Warning>
+
+## Resource selector value
+
+```
+resource_administration_custom_fields
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addCustomField — Create Custom Field">
+    **Type:** Write
+
+    Creates a new custom metadata field that will be available on all media tracks across the server.
+  </Accordion>
+
+  <Accordion title="deleteCustomField — Delete Custom Field">
+    **Type:** Write
+
+    Permanently deletes a custom field and removes it from all associated media tracks.
+  </Accordion>
+
+  <Accordion title="editCustomField — Update Custom Field">
+    **Type:** Write
+
+    Updates the name or configuration of an existing custom metadata field.
+  </Accordion>
+
+  <Accordion title="getCustomField — Get Custom Field">
+    **Type:** Read
+
+    Retrieves the definition of a single custom metadata field by its ID.
+  </Accordion>
+
+  <Accordion title="getCustomFields — List Custom Fields">
+    **Type:** Read
+
+    Returns all custom metadata fields defined on the AzuraCast server.
+  </Accordion>
+</AccordionGroup>
+
+## Usage notes
+
+<Note>
+  Deleting a custom field with `deleteCustomField` will remove the field and any values stored against it on media tracks. This action cannot be undone.
+</Note>

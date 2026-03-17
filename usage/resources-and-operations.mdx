@@ -1,0 +1,70 @@
+---
+title: "Resources and Operations"
+description: "How the AzuraCast node organizes API endpoints into resources and operations, and what all 27 resource categories cover."
+---
+
+The AzuraCast node uses a two-level selector to navigate the AzuraCast API:
+
+1. **Resource** — the API domain or tag (e.g. `Stations Media`, `Administration Users`)
+2. **Operation** — the specific endpoint within that resource (e.g. `List Files`, `Upload File`)
+
+Selecting a resource filters the operation list to only show endpoints that belong to that tag. Selecting an operation then shows only the input fields that endpoint requires.
+
+## Resource categories
+
+All 27 resources map directly to official AzuraCast API tags.
+
+| Resource key | Display name | Coverage |
+|---|---|---|
+| `resource_administration_backups` | Administration Backups | Backup management and downloads |
+| `resource_administration_custom_fields` | Administration Custom Fields | Station custom metadata fields |
+| `resource_administration_debugging` | Administration Debugging | Diagnostic and debug actions |
+| `resource_administration_general` | Administration General | System-wide admin operations |
+| `resource_administration_roles` | Administration Roles | Role definitions and permissions |
+| `resource_administration_settings` | Administration Settings | Global AzuraCast settings |
+| `resource_administration_stations` | Administration Stations | Station management from admin panel |
+| `resource_administration_storage_locations` | Administration Storage Locations | Storage backend configuration |
+| `resource_administration_users` | Administration Users | User accounts and API keys |
+| `resource_miscellaneous` | Miscellaneous | General authenticated endpoints |
+| `resource_my_account` | My Account | Current user account operations |
+| `resource_public_miscellaneous` | Public Miscellaneous | Unauthenticated utility endpoints |
+| `resource_public_now_playing` | Public Now Playing | Live now-playing data for stations |
+| `resource_public_stations` | Public Stations | Public station directory and info |
+| `resource_stations_broadcasting` | Stations Broadcasting | Live broadcasting and stream control |
+| `resource_stations_general` | Stations General | General per-station management |
+| `resource_stations_hls_streams` | Stations HLS Streams | HLS stream configuration |
+| `resource_stations_media` | Stations Media | File uploads, metadata, and library |
+| `resource_stations_mount_points` | Stations Mount Points | Icecast/Shoutcast mount points |
+| `resource_stations_playlists` | Stations Playlists | Playlist creation and scheduling |
+| `resource_stations_podcasts` | Stations Podcasts | Podcast feed and episode management |
+| `resource_stations_queue` | Stations Queue | Upcoming track queue management |
+| `resource_stations_remote_relays` | Stations Remote Relays | Remote relay stream configuration |
+| `resource_stations_reports` | Stations Reports | Listener and performance reports |
+| `resource_stations_sftp_users` | Stations SFTP Users | SFTP access credential management |
+| `resource_stations_streamers_djs` | Stations Streamers DJs | Streamer/DJ account management |
+| `resource_stations_web_hooks` | Stations Web Hooks | Webhook event configuration |
+
+## How operations are named
+
+Each operation's display name is derived from the AzuraCast OpenAPI specification using this priority order:
+
+1. **Operation ID** — if present, the `operationId` string is converted to title case (e.g. `getStationMedia` → `Get Station Media`)
+2. **Summary** — if the operation ID is absent or path-like, the `summary` field is used
+3. **Description** — used as a fallback when neither of the above produces a clean label
+4. **HTTP method fallback** — if none of the above are usable, the label becomes `GET request`, `POST request`, etc.
+
+Redundant resource tokens are stripped from operation names to keep them concise within context. For example, an operation named `Get Station Playlist` inside the **Stations Playlists** resource becomes simply **Get Playlist**.
+
+When multiple operations in the same resource would produce identical display names, the HTTP method is appended (e.g. `Update (PUT)`, `Update (PATCH)`) and further numbered if necessary.
+
+## Field visibility
+
+Each operation shows only the fields that apply to that specific endpoint:
+
+- **Path parameters** are shown as required string fields (e.g. `Station ID`, `ID`)
+- **Required query parameters** are shown as required fields
+- **Optional query parameters** are grouped under an **Optional Query Parameters** collection
+- **Required body fields** are shown as required fields
+- **Optional body fields** are grouped under an **Optional Body Fields** or **Optional Multipart Fields** collection
+
+Fields from other operations are hidden, keeping each action's configuration panel clean and focused.

@@ -1,0 +1,132 @@
+---
+title: "Stations: Podcasts"
+description: "Create and manage podcasts and podcast episodes for an AzuraCast station, including artwork and media file uploads."
+---
+
+The **Stations: Podcasts** resource manages podcasts and their episodes hosted through an AzuraCast station — creating and editing podcasts and episodes, uploading artwork and episode audio, and linking podcasts to station playlists.
+
+<Info>
+  All station operations require an AzuraCast API key and a valid **Station ID**.
+</Info>
+
+## Resource selector value
+
+```
+resource_stations_podcasts
+```
+
+## Operations
+
+<AccordionGroup>
+  <Accordion title="addEpisode — Create a podcast episode">
+    **Type:** Write
+
+    Creates a new episode under a specific podcast. Accepts a JSON body with episode metadata (title, description, publish date, etc.).
+  </Accordion>
+
+  <Accordion title="addPodcast — Create a podcast">
+    **Type:** Write
+
+    Creates a new podcast feed for the station. Accepts a JSON body with podcast metadata (title, description, language, categories, etc.).
+  </Accordion>
+
+  <Accordion title="deleteEpisode — Delete a podcast episode">
+    **Type:** Write
+
+    Permanently deletes a podcast episode by its ID.
+  </Accordion>
+
+  <Accordion title="deletePodcast — Delete a podcast">
+    **Type:** Write
+
+    Permanently deletes a podcast and all of its episodes.
+  </Accordion>
+
+  <Accordion title="deletePodcastArt — Delete podcast artwork">
+    **Type:** Write
+
+    Removes the cover art image for a specific podcast.
+  </Accordion>
+
+  <Accordion title="deletePodcastEpisodeArt — Delete episode artwork">
+    **Type:** Write
+
+    Removes the cover art image for a specific podcast episode.
+  </Accordion>
+
+  <Accordion title="deletePodcastEpisodeMedia — Delete episode audio">
+    **Type:** Write
+
+    Removes the audio file attached to a specific podcast episode.
+  </Accordion>
+
+  <Accordion title="editEpisode — Update a podcast episode">
+    **Type:** Write
+
+    Updates the metadata of an existing podcast episode. Accepts a JSON body with the fields to change.
+  </Accordion>
+
+  <Accordion title="editPodcast — Update a podcast">
+    **Type:** Write
+
+    Updates the metadata and settings of an existing podcast. Accepts a JSON body with the fields to change.
+  </Accordion>
+
+  <Accordion title="getEpisode — Retrieve a podcast episode">
+    **Type:** Read
+
+    Returns the full metadata for a single podcast episode by its ID.
+  </Accordion>
+
+  <Accordion title="getEpisodes — List all podcast episodes">
+    **Type:** Read
+
+    Returns a list of all episodes for a specific podcast.
+  </Accordion>
+
+  <Accordion title="getPodcast — Retrieve a podcast">
+    **Type:** Read
+
+    Returns the full metadata for a single podcast by its ID.
+  </Accordion>
+
+  <Accordion title="getPodcasts — List all podcasts">
+    **Type:** Read
+
+    Returns a list of all podcasts for the station.
+  </Accordion>
+
+  <Accordion title="getStationPodcastPlaylists — List podcast-linked playlists">
+    **Type:** Read
+
+    Returns the playlists that are available to link as sources for podcast episode media.
+  </Accordion>
+
+  <Accordion title="postPodcastArt — Upload podcast artwork">
+    **Type:** Write
+
+    Uploads a cover art image for a specific podcast. Supports binary (multipart) upload.
+  </Accordion>
+
+  <Accordion title="postPodcastEpisodeArt — Upload episode artwork">
+    **Type:** Write
+
+    Uploads a cover art image for a specific podcast episode. Supports binary (multipart) upload.
+  </Accordion>
+
+  <Accordion title="postPodcastEpisodeMedia — Upload episode audio">
+    **Type:** Write
+
+    Uploads the audio file for a specific podcast episode. Supports binary (multipart) upload.
+  </Accordion>
+</AccordionGroup>
+
+## Using the stationId parameter
+
+<Note>
+  Every operation in this resource requires a `stationId` path parameter. Set this to the numeric ID or short name of the target station in your AzuraCast instance.
+</Note>
+
+<Tip>
+  Operations that upload artwork (`postPodcastArt`, `postPodcastEpisodeArt`) and episode audio (`postPodcastEpisodeMedia`) use multipart form-data. Pass the binary item from a previous node and set the binary property name in the node parameters.
+</Tip>
