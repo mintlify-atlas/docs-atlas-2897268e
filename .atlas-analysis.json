@@ -1,0 +1,104 @@
+{
+  "projectType": "sdk-library",
+  "projectName": "n8n Nodes AzuraCast",
+  "projectDescription": "An n8n community node package that connects AzuraCast web radio platform to n8n workflows, providing full coverage of all 263 AzuraCast OpenAPI operations.",
+  "theme": "sequoia",
+  "primaryColor": "#848c8e",
+  "lightColor": "#11161e",
+  "darkColor": "#cfd0d2",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction", "installation", "quickstart"]
+          },
+          {
+            "group": "Configuration",
+            "pages": ["credentials", "compatibility"]
+          },
+          {
+            "group": "Usage",
+            "pages": ["usage/overview", "usage/resources-and-operations", "usage/request-body", "usage/response-handling", "usage/advanced-options"]
+          },
+          {
+            "group": "Contributing",
+            "pages": ["contributing/publishing", "contributing/regenerating-operations", "contributing/changelog"]
+          }
+        ]
+      },
+      {
+        "tab": "API Resources",
+        "groups": [
+          {
+            "group": "Public",
+            "pages": ["resources/public-now-playing", "resources/public-stations", "resources/public-miscellaneous"]
+          },
+          {
+            "group": "My Account",
+            "pages": ["resources/my-account"]
+          },
+          {
+            "group": "Stations",
+            "pages": [
+              "resources/stations-general",
+              "resources/stations-media",
+              "resources/stations-playlists",
+              "resources/stations-broadcasting",
+              "resources/stations-mount-points",
+              "resources/stations-hls-streams",
+              "resources/stations-podcasts",
+              "resources/stations-queue",
+              "resources/stations-remote-relays",
+              "resources/stations-reports",
+              "resources/stations-sftp-users",
+              "resources/stations-streamers-djs",
+              "resources/stations-web-hooks"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "resources/administration-general",
+              "resources/administration-stations",
+              "resources/administration-users",
+              "resources/administration-roles",
+              "resources/administration-settings",
+              "resources/administration-backups",
+              "resources/administration-custom-fields",
+              "resources/administration-storage-locations",
+              "resources/administration-debugging"
+            ]
+          },
+          {
+            "group": "Miscellaneous",
+            "pages": ["resources/miscellaneous"]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Full AzuraCast OpenAPI coverage (263/263 operations)",
+    "Single unified AzuraCast node with operations grouped by API resource/tag",
+    "Supports path, query, JSON body, raw body, binary, and multipart form-data",
+    "Auto-detects response format (JSON, binary, or text) per endpoint",
+    "Public endpoints work without an API key; protected endpoints require one",
+    "Backward compatible with legacy operationId and JSON parameter workflows",
+    "Dual authentication headers: X-API-Key and Authorization Bearer"
+  ],
+  "publicApiSurface": [
+    "AzuraCast node (n8n INodeType)",
+    "AzuraCastApi credential type (renebelloAzuraCastApi)",
+    "createDomainOperationConfig(tag)",
+    "createUnifiedOperationConfig()",
+    "createResourceProperty()",
+    "createResourceOperationProperty(tag, resourceValue?)",
+    "createResourceFieldProperties(tag, resourceValue?)",
+    "createSharedAdvancedProperties()",
+    "executeDomainNode(operationMap, fixedOperationId?)",
+    "azuraCastCredentialTypeName"
+  ]
+}
